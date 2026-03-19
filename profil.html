@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon Profil — BiblioAfrik</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
+  <style>
+    .profil-hero{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;padding:60px 5%;text-align:center;}
+    .profil-avatar-big{font-size:5rem;margin-bottom:15px;display:block;}
+    .profil-hero h1{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:5px;}
+    .profil-hero p{opacity:.8;font-size:0.95rem;}
+    .profil-badge-hero{display:inline-block;background:rgba(240,165,0,0.2);border:1px solid #f0a500;color:#f0a500;padding:5px 16px;border-radius:20px;font-size:0.82rem;margin-top:10px;font-weight:600;}
+    .profil-content{max-width:950px;margin:0 auto;padding:40px 5%;}
+    .profil-grid{display:grid;grid-template-columns:280px 1fr;gap:25px;}
+    .profil-card{background:var(--surface,#fff);border-radius:18px;padding:28px;box-shadow:0 5px 20px var(--shadow,rgba(0,0,0,0.08));}
+    .profil-card h3{color:var(--text);margin-bottom:18px;font-size:1rem;border-bottom:2px solid #f0a500;padding-bottom:10px;display:flex;align-items:center;gap:8px;}
+    .stat-profil{text-align:center;padding:18px;background:var(--surface2,#f0f4ff);border-radius:12px;margin-bottom:12px;transition:transform 0.3s;}
+    .stat-profil:hover{transform:translateY(-3px);}
+    .stat-profil h2{font-size:2rem;color:#f0a500;font-weight:800;}
+    .stat-profil p{color:var(--gray,#777);font-size:0.82rem;margin-top:3px;}
+    .profil-info-item{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border,#e0e0e0);font-size:0.88rem;}
+    .profil-info-item:last-child{border-bottom:none;}
+    .profil-info-item span:first-child{color:var(--gray,#777);display:flex;align-items:center;gap:6px;}
+    .profil-info-item span:last-child{color:var(--text);font-weight:600;text-align:right;max-width:60%;}
+    .badge-membre{display:inline-block;background:rgba(46,204,113,0.15);color:#2ecc71;padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;}
+    .acces-rapide{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px;}
+    .acces-btn{background:var(--surface2,#f0f4ff);padding:14px;border-radius:12px;text-align:center;text-decoration:none;color:var(--text);font-size:0.85rem;font-weight:600;transition:all 0.3s;border:2px solid transparent;display:block;}
+    .acces-btn:hover{border-color:#f0a500;background:rgba(240,165,0,0.08);transform:translateY(-2px);}
+    .btn-deco{background:#e74c3c;color:white;border:none;padding:12px 20px;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:600;cursor:pointer;width:100%;margin-top:12px;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.9rem;}
+    .btn-deco:hover{opacity:.85;transform:translateY(-2px);}
+    @media(max-width:768px){.profil-grid{grid-template-columns:1fr;}.acces-rapide{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">📚 BiblioAfrik</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="bibliotheque.html">Bibliothèque</a></li>
+      <li><a href="apropos.html">Notre Histoire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle">🌙</button>
+      <a href="profil.html" class="btn-nav-login" id="btnProfil">👤 Profil</a>
+      <a href="#" class="btn-nav-register" id="btnDeco">🚪 Déconnexion</a>
+    </div>
+  </nav>
+
+  <div id="contenuProfil"></div>
+
+  <!-- PUB -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom"><p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p></div>
+  </footer>
+
+  <script src="js/notifications.js"></script>
+  <script>
+    const toggle=document.getElementById('darkToggle');
+    const html=document.documentElement;
+    if(localStorage.getItem('theme')==='dark'){html.setAttribute('data-theme','dark');toggle.textContent='☀️';}
+    toggle.addEventListener('click',()=>{const d=html.getAttribute('data-theme')==='dark';html.setAttribute('data-theme',d?'light':'dark');toggle.textContent=d?'🌙':'☀️';localStorage.setItem('theme',d?'light':'dark');});
+    document.getElementById('hamburger').addEventListener('click',()=>{document.getElementById('navMenu').classList.toggle('ouvert');});
+
+    const user=JSON.parse(localStorage.getItem('biblioafrik_user_actif')||'null');
+
+    if(!user){
+      window.location.href='connexion.html';
+    } else {
+      document.getElementById('btnProfil').textContent='👤 '+user.prenom;
+      document.getElementById('btnDeco').onclick=()=>{localStorage.removeItem('biblioafrik_user_actif');window.location.href='index.html';};
+
+      document.getElementById('contenuProfil').innerHTML=`
+        <section class="profil-hero">
+          <span class="profil-avatar-big">👤</span>
+          <h1>${user.prenom} ${user.nom}</h1>
+          <p>${user.email}</p>
+          <div class="profil-badge-hero">${user.profil||'Membre BiblioAfrik'}</div>
+        </section>
+
+        <div class="profil-content">
+          <div class="profil-grid">
+
+            <div>
+              <div class="stat-profil">
+                <h2>🏆</h2>
+                <p>${user.badge||'Nouveau membre 🌱'}</p>
+              </div>
+              <div class="stat-profil">
+                <h2>${user.telechargements||0}</h2>
+                <p>Téléchargements</p>
+              </div>
+              <div class="stat-profil">
+                <h2>${(user.favoris||[]).length}</h2>
+                <p>Favoris sauvegardés</p>
+              </div>
+              <div class="stat-profil">
+                <h2>${(user.categories||[]).length}</h2>
+                <p>Catégories favorites</p>
+              </div>
+              <button class="btn-deco" onclick="seDeconnecter()">
+                <i class="fas fa-sign-out-alt"></i> Se déconnecter
+              </button>
+            </div>
+
+            <div>
+              <div class="profil-card">
+                <h3><i class="fas fa-user" style="color:#f0a500;"></i> Mes Informations</h3>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-user"></i> Prénom</span><span>${user.prenom}</span>
+                </div>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-user"></i> Nom</span><span>${user.nom}</span>
+                </div>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-envelope"></i> Email</span><span>${user.email}</span>
+                </div>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-globe-africa"></i> Pays</span><span>${user.pays||'Non renseigné'}</span>
+                </div>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-user-tag"></i> Profil</span><span>${user.profil||'Non renseigné'}</span>
+                </div>
+                ${user.ecole?`<div class="profil-info-item"><span><i class="fas fa-school"></i> École</span><span>${user.ecole}</span></div>`:''}
+                <div class="profil-info-item">
+                  <span><i class="fas fa-calendar"></i> Membre depuis</span><span>${user.dateInscription||'Aujourd\'hui'}</span>
+                </div>
+                <div class="profil-info-item">
+                  <span><i class="fas fa-bell"></i> Newsletter</span>
+                  <span><span class="badge-membre">${user.newsletter?'✅ Abonné':'❌ Non abonné'}</span></span>
+                </div>
+              </div>
+
+              <div class="profil-card" style="margin-top:20px;">
+                <h3><i class="fas fa-rocket" style="color:#f0a500;"></i> Accès Rapide</h3>
+                <div class="acces-rapide">
+                  <a href="bibliotheque.html" class="acces-btn">📚 Bibliothèque</a>
+                  <a href="bibliotheque.html?cat=motivation" class="acces-btn">💪 Motivation</a>
+                  <a href="bibliotheque.html?cat=chretien" class="acces-btn">✝️ Chrétien</a>
+                  <a href="bibliotheque.html?cat=sport" class="acces-btn">⚽ Sport</a>
+                  <a href="bibliotheque.html?cat=histoires" class="acces-btn">📜 Histoires</a>
+                  <a href="bibliotheque.html?cat=culture" class="acces-btn">🌍 Culture</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+
+    function seDeconnecter(){
+      localStorage.removeItem('biblioafrik_user_actif');
+      window.location.href='index.html';
+    }
+  </script>
+</body>
+</html>

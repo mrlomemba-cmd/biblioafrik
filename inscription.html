@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inscription — BiblioAfrik</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* === NAV === */
+    .auth-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5%;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(26,26,46,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .auth-nav .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #f0a500;
+      text-decoration: none;
+    }
+
+    .auth-nav a.back {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 7px 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .auth-nav a.back:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    .dark-toggle {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dark-toggle:hover { background: #f0a500; }
+
+    /* === PAGE === */
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 20px 40px;
+    }
+
+    .auth-wrapper {
+      display: flex;
+      gap: 40px;
+      max-width: 1000px;
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    /* === PANNEAU GAUCHE === */
+    .auth-left {
+      flex: 1;
+      color: white;
+      padding: 20px;
+    }
+
+    .auth-left h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 800;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .auth-left h2 span { color: #f0a500; }
+
+    .auth-left p {
+      opacity: 0.8;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .benefit-list { list-style: none; }
+    .benefit-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .benefit-list li span:first-child { font-size: 1.3rem; }
+
+    .already-member {
+      margin-top: 30px;
+      font-size: 0.88rem;
+      opacity: 0.75;
+    }
+
+    .already-member a {
+      color: #f0a500;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* === BOÎTE INSCRIPTION === */
+    .auth-box {
+      background: var(--surface, #fff);
+      border-radius: 24px;
+      padding: 40px 35px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+
+    .auth-box-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .auth-box-header .icon { font-size: 2.8rem; display: block; margin-bottom: 10px; }
+    .auth-box-header h2 { font-size: 1.5rem; color: var(--text, #1a1a2e); margin-bottom: 5px; }
+    .auth-box-header p { color: var(--gray, #888); font-size: 0.85rem; }
+
+    /* === ÉTAPES === */
+    .steps-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface2, #f0f4ff);
+      border: 2px solid var(--border, #e0e0e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gray, #888);
+      transition: all 0.3s;
+    }
+
+    .step-dot.actif {
+      background: #f0a500;
+      border-color: #f0a500;
+      color: #1a1a2e;
+    }
+
+    .step-dot.fait {
+      background: #2ecc71;
+      border-color: #2ecc71;
+      color: white;
+    }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border, #e0e0e0);
+      max-width: 40px;
+      transition: background 0.3s;
+    }
+
+    .step-line.fait { background: #2ecc71; }
+
+    /* === FORMULAIRE === */
+    .form-step { display: none; }
+    .form-step.actif { display: block; }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text, #333);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border, #e0e0e0);
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      background: var(--bg, #f4f6f9);
+      color: var(--text, #333);
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #f0a500;
+      box-shadow: 0 0 0 3px rgba(240,165,0,0.15);
+    }
+
+    .form-group input.valide { border-color: #2ecc71; }
+    .form-group input.invalide { border-color: #e74c3c; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .input-hint {
+      font-size: 0.76rem;
+      color: var(--gray, #888);
+      margin-top: 5px;
+    }
+
+    .input-hint.erreur { color: #e74c3c; }
+    .input-hint.succes { color: #2ecc71; }
+
+    /* === FORCE MOT DE PASSE === */
+    .password-strength-bar {
+      height: 5px;
+      border-radius: 3px;
+      background: var(--border, #e0e0e0);
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .password-strength-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: all 0.4s;
+    }
+
+    .password-strength-label {
+      font-size: 0.76rem;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* === CHECKBOX === */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: #f0a500;
+    }
+
+    .checkbox-group label {
+      font-size: 0.82rem;
+      color: var(--text2, #555);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .checkbox-group label a { color: #f0a500; text-decoration: none; font-weight: 600; }
+
+    /* === BOUTONS === */
+    .btn-auth {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+
+    .btn-primary {
+      background: #f0a500;
+      color: #1a1a2e;
+    }
+
+    .btn-primary:hover {
+      background: #0f3460;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(15,52,96,0.3);
+    }
+
+    .btn-secondary {
+      background: var(--surface2, #f0f4ff);
+      color: var(--text, #333);
+      margin-top: 10px;
+    }
+
+    .btn-secondary:hover { background: var(--border, #e0e0e0); }
+
+    /* === MESSAGES === */
+    .msg-erreur {
+      background: rgba(231,76,60,0.1);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: #e74c3c;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .msg-succes {
+      background: rgba(46,204,113,0.1);
+      border: 1px solid rgba(46,204,113,0.3);
+      color: #2ecc71;
+      padding: 15px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      display: none;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* === SÉPARATEUR === */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--gray, #888);
+      font-size: 0.82rem;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border, #e0e0e0);
+    }
+
+    /* === SOCIAL === */
+    .social-btns { display: flex; gap: 10px; }
+
+    .btn-social {
+      flex: 1;
+      padding: 11px;
+      border: 2px solid var(--border, #e0e0e0);
+      border-radius: 10px;
+      background: var(--surface, #fff);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text, #333);
+      transition: all 0.3s;
+    }
+
+    .btn-social:hover { border-color: #f0a500; background: rgba(240,165,0,0.05); }
+
+    /* === CONFIRMATION === */
+    .confirmation {
+      text-align: center;
+      padding: 20px 0;
+      display: none;
+    }
+
+    .confirmation .check { font-size: 4rem; display: block; margin-bottom: 15px; animation: bounce 0.6s ease; }
+    .confirmation h3 { font-size: 1.4rem; color: var(--text, #333); margin-bottom: 10px; }
+    .confirmation p { color: var(--gray, #888); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+
+    /* === DARK MODE === */
+    [data-theme="dark"] .auth-box {
+      --surface: #1a1a2e;
+      --surface2: #16213e;
+      --bg: #0d0d1a;
+      --text: #f0f0f0;
+      --text2: #bbb;
+      --gray: #888;
+      --border: #2a2a4a;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(15px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .form-step.actif { animation: fadeIn 0.4s ease; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .auth-wrapper { flex-direction: column; }
+      .auth-left { display: none; }
+      .auth-box { padding: 30px 22px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="auth-nav">
+    <a href="index.html" class="logo">📚 BiblioAfrik</a>
+    <a href="index.html" class="back">← Retour à l'accueil</a>
+    <button class="dark-toggle" id="darkToggle">🌙</button>
+  </nav>
+
+  <div class="auth-page">
+    <div class="auth-wrapper">
+
+      <!-- PANNEAU GAUCHE -->
+      <div class="auth-left">
+        <h2>Rejoins la plus grande bibliothèque<br/><span>numérique africaine</span></h2>
+        <p>Des milliers d'étudiants, chrétiens, sportifs et passionnés de lecture nous font déjà confiance. Rejoins-nous gratuitement !</p>
+        <ul class="benefit-list">
+          <li><span>📚</span><span>Accès illimité à tous les documents</span></li>
+          <li><span>✝️</span><span>Livres chrétiens et études bibliques</span></li>
+          <li><span>⚽</span><span>Ressources sport et santé</span></li>
+          <li><span>💪</span><span>Livres de motivation et développement</span></li>
+          <li><span>📜</span><span>Histoires, romans et contes africains</span></li>
+          <li><span>🔔</span><span>Notifications des nouveaux contenus</span></li>
+          <li><span>🌍</span><span>Communauté de 50+ pays francophones</span></li>
+          <li><span>🆓</span><span>100% gratuit, pour toujours</span></li>
+        </ul>
+        <p class="already-member">Déjà membre ? <a href="connexion.html">Se connecter →</a></p>
+      </div>
+
+      <!-- BOÎTE INSCRIPTION -->
+      <div class="auth-box" id="authBox">
+        <div class="auth-box-header">
+          <span class="icon">🚀</span>
+          <h2>Créer mon compte</h2>
+          <p>Gratuit · Rapide · Sans carte bancaire</p>
+        </div>
+
+        <!-- INDICATEUR D'ÉTAPES -->
+        <div class="steps-indicator">
+          <div class="step-dot actif" id="dot1">1</div>
+          <div class="step-line" id="line1"></div>
+          <div class="step-dot" id="dot2">2</div>
+          <div class="step-line" id="line2"></div>
+          <div class="step-dot" id="dot3">3</div>
+        </div>
+
+        <!-- MESSAGE ERREUR GLOBAL -->
+        <div class="msg-erreur" id="msgErreur">⚠️ Erreur</div>
+
+        <!-- ===== ÉTAPE 1 : IDENTITÉ ===== -->
+        <div class="form-step actif" id="step1">
+          <p style="font-size:0.85rem; color:var(--gray,#888); margin-bottom:20px; font-weight:600;">
+            Étape 1 sur 3 — Ton identité
+          </p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>👤 Prénom *</label>
+              <input type="text" id="prenom" placeholder="Ex: Jean" oninput="validerChamp(this, 2)"/>
+              <div class="input-hint" id="hint-prenom"></div>
+            </div>
+            <div class="form-group">
+              <label>👤 Nom *</label>
+              <input type="text" id="nom" placeholder="Ex: Dupont" oninput="validerChamp(this, 2)"/>
+              <div class="input-hint" id="hint-nom"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>📧 Adresse email *</label>
+            <input type="email" id="email" placeholder="ton@email.com" oninput="validerEmail(this)"/>
+            <div class="input-hint" id="hint-email"></div>
+          </div>
+
+          <div class="form-group">
+            <label>📱 Numéro WhatsApp (optionnel)</label>
+            <input type="tel" id="telephone" placeholder="+226 XX XX XX XX"/>
+            <div class="input-hint">Format international recommandé</div>
+          </div>
+
+          <button class="btn-auth btn-primary" onclick="etapeSuivante(1)">
+            Continuer → Étape 2
+          </button>
+
+          <div class="divider">ou rejoindre avec</div>
+          <div class="social-btns">
+            <button class="btn-social" onclick="alert('Bientôt disponible !')">📘 Facebook</button>
+            <button class="btn-social" onclick="alert('Bientôt disponible !')">🔴 Google</button>
+          </div>
+        </div>
+
+        <!-- ===== ÉTAPE 2 : PROFIL ===== -->
+        <div class="form-step" id="step2">
+          <p style="font-size:0.85rem; color:var(--gray,#888); margin-bottom:20px; font-weight:600;">
+            Étape 2 sur 3 — Ton profil
+          </p>
+
+          <div class="form-group">
+            <label>🌍 Pays de résidence *</label>
+            <select id="pays">
+              <option value="">-- Sélectionne ton pays --</option>
+              <optgroup label="🌍 Afrique Centrale">
+                <option value="🇨🇩 Congo (RDC)">🇨🇩 Congo (RDC)</option>
+                <option value="🇨🇬 Congo (Brazzaville)">🇨🇬 Congo (Brazzaville)</option>
+                <option value="🇨🇲 Cameroun">🇨🇲 Cameroun</option>
+                <option value="🇬🇦 Gabon">🇬🇦 Gabon</option>
+                <option value="🇹🇩 Tchad">🇹🇩 Tchad</option>
+                <option value="🇷🇼 Rwanda">🇷🇼 Rwanda</option>
+                <option value="🇧🇮 Burundi">🇧🇮 Burundi</option>
+              </optgroup>
+              <optgroup label="🌍 Afrique de l'Ouest">
+                <option value="🇸🇳 Sénégal">🇸🇳 Sénégal</option>
+                <option value="🇨🇮 Côte d'Ivoire">🇨🇮 Côte d'Ivoire</option>
+                <option value="🇲🇱 Mali">🇲🇱 Mali</option>
+                <option value="🇧🇫 Burkina Faso">🇧🇫 Burkina Faso</option>
+                <option value="🇳🇪 Niger">🇳🇪 Niger</option>
+                <option value="🇬🇳 Guinée">🇬🇳 Guinée</option>
+                <option value="🇧🇯 Bénin">🇧🇯 Bénin</option>
+                <option value="🇹🇬 Togo">🇹🇬 Togo</option>
+                <option value="🇲🇷 Mauritanie">🇲🇷 Mauritanie</option>
+              </optgroup>
+              <optgroup label="🌍 Afrique du Nord">
+                <option value="🇲🇦 Maroc">🇲🇦 Maroc</option>
+                <option value="🇩🇿 Algérie">🇩🇿 Algérie</option>
+                <option value="🇹🇳 Tunisie">🇹🇳 Tunisie</option>
+              </optgroup>
+              <optgroup label="🌍 Afrique de l'Est">
+                <option value="🇲🇬 Madagascar">🇲🇬 Madagascar</option>
+                <option value="🇩🇯 Djibouti">🇩🇯 Djibouti</option>
+              </optgroup>
+              <optgroup label="🌍 Autres régions francophones">
+                <option value="🇫🇷 France">🇫🇷 France</option>
+                <option value="🇧🇪 Belgique">🇧🇪 Belgique</option>
+                <option value="🇨🇭 Suisse">🇨🇭 Suisse</option>
+                <option value="🇨🇦 Canada">🇨🇦 Canada</option>
+                <option value="🇭🇹 Haïti">🇭🇹 Haïti</option>
+                <option value="Autre pays">🌐 Autre pays</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>🎯 Je suis principalement *</label>
+            <select id="profil">
+              <option value="">-- Ton profil --</option>
+              <option value="🎓 Étudiant(e)">🎓 Étudiant(e) universitaire</option>
+              <option value="📚 Lycéen(ne)">📚 Lycéen(ne)</option>
+              <option value="🏫 Collégien(ne)">🏫 Collégien(ne)</option>
+              <option value="👨‍🏫 Enseignant(e)">👨‍🏫 Enseignant(e)</option>
+              <option value="💼 Professionnel(le)">💼 Professionnel(le)</option>
+              <option value="✝️ Chrétien(ne)">✝️ Chrétien(ne) cherchant ressources spirituelles</option>
+              <option value="⚽ Sportif(ve)">⚽ Sportif(ve) / Passionné(e) de sport</option>
+              <option value="💪 En quête de motivation">💪 En quête de motivation</option>
+              <option value="📖 Lecteur(trice)">📖 Amoureux(se) de lecture</option>
+              <option value="👨‍👩‍👧 Parent">👨‍👩‍👧 Parent cherchant ressources pour enfants</option>
+              <option value="Autre">🌍 Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>📅 Date de naissance (optionnel)</label>
+            <input type="date" id="naissance"/>
+            <div class="input-hint">Tu dois avoir au moins 13 ans</div>
+          </div>
+
+          <div class="form-group">
+            <label>🏫 École / Université (optionnel)</label>
+            <input type="text" id="ecole" placeholder="Nom de ton établissement..."/>
+          </div>
+
+          <button class="btn-auth btn-primary" onclick="etapeSuivante(2)">
+            Continuer → Étape 3
+          </button>
+          <button class="btn-auth btn-secondary" onclick="etapePrecedente(2)">
+            ← Retour
+          </button>
+        </div>
+
+        <!-- ===== ÉTAPE 3 : SÉCURITÉ ===== -->
+        <div class="form-step" id="step3">
+          <p style="font-size:0.85rem; color:var(--gray,#888); margin-bottom:20px; font-weight:600;">
+            Étape 3 sur 3 — Sécurité de ton compte
+          </p>
+
+          <div class="form-group">
+            <label>🔒 Mot de passe *</label>
+            <input type="password" id="password" placeholder="Minimum 6 caractères" oninput="verifierForce(this.value)"/>
+            <div class="password-strength-bar">
+              <div class="password-strength-fill" id="strengthFill"></div>
+            </div>
+            <div class="password-strength-label" id="strengthLabel"></div>
+          </div>
+
+          <div class="form-group">
+            <label>🔒 Confirmer le mot de passe *</label>
+            <input type="password" id="password2" placeholder="Répète ton mot de passe" oninput="confirmerPassword(this.value)"/>
+            <div class="input-hint" id="hint-password2"></div>
+          </div>
+
+          <div class="form-group">
+            <label>🗺️ Catégories favorites (optionnel)</label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:5px;">
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="cours" style="accent-color:#f0a500;width:auto;"/> 📚 Cours
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="chretien" style="accent-color:#f0a500;width:auto;"/> ✝️ Chrétien
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="sport" style="accent-color:#f0a500;width:auto;"/> ⚽ Sport
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="motivation" style="accent-color:#f0a500;width:auto;"/> 💪 Motivation
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="histoires" style="accent-color:#f0a500;width:auto;"/> 📜 Histoires
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.85rem;cursor:pointer;padding:8px;border:2px solid var(--border,#e0e0e0);border-radius:8px;transition:all 0.3s;" class="cat-check">
+                <input type="checkbox" value="culture" style="accent-color:#f0a500;width:auto;"/> 🌍 Culture
+              </label>
+            </div>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="newsletter"/>
+            <label for="newsletter">📬 Je veux recevoir les nouveaux documents par email</label>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="conditions"/>
+            <label for="conditions">
+              J'accepte les <a href="conditions.html" target="_blank">conditions d'utilisation</a> et la <a href="conditions.html" target="_blank">politique de confidentialité</a> *
+            </label>
+          </div>
+
+          <button class="btn-auth btn-primary" onclick="creerCompte()">
+            🚀 Créer mon compte gratuit
+          </button>
+          <button class="btn-auth btn-secondary" onclick="etapePrecedente(3)">
+            ← Retour
+          </button>
+        </div>
+
+        <!-- ===== CONFIRMATION ===== -->
+        <div class="confirmation" id="confirmation">
+          <span class="check">🎉</span>
+          <h3>Bienvenue sur BiblioAfrik !</h3>
+          <p>Ton compte a été créé avec succès. Tu fais maintenant partie de notre communauté internationale !</p>
+          <div class="msg-succes" id="msgSucces" style="display:block;">
+            ✅ Redirection vers ton profil...
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === DARK MODE ===
+    const toggle = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme','dark'); toggle.textContent='☀️'; }
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      toggle.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+
+    // === VALIDATION TEMPS RÉEL ===
+    function validerChamp(input, minLen) {
+      const hint = document.getElementById('hint-' + input.id);
+      if (input.value.trim().length >= minLen) {
+        input.classList.add('valide'); input.classList.remove('invalide');
+        if (hint) { hint.textContent = '✅ Parfait !'; hint.className = 'input-hint succes'; }
+      } else {
+        input.classList.add('invalide'); input.classList.remove('valide');
+        if (hint) { hint.textContent = `Minimum ${minLen} caractères`; hint.className = 'input-hint erreur'; }
+      }
+    }
+
+    function validerEmail(input) {
+      const hint = document.getElementById('hint-email');
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (regex.test(input.value)) {
+        input.classList.add('valide'); input.classList.remove('invalide');
+        hint.textContent = '✅ Email valide !'; hint.className = 'input-hint succes';
+      } else {
+        input.classList.add('invalide'); input.classList.remove('valide');
+        hint.textContent = 'Format invalide (ex: nom@email.com)'; hint.className = 'input-hint erreur';
+      }
+    }
+
+    // === FORCE MOT DE PASSE ===
+    function verifierForce(val) {
+      const fill = document.getElementById('strengthFill');
+      const label = document.getElementById('strengthLabel');
+      if (!val) { fill.style.width='0'; label.textContent=''; return; }
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const configs = [
+        { w:'20%', c:'#e74c3c', t:'😟 Très faible' },
+        { w:'40%', c:'#e67e22', t:'😐 Faible' },
+        { w:'60%', c:'#f0a500', t:'🙂 Moyen' },
+        { w:'80%', c:'#27ae60', t:'😊 Fort' },
+        { w:'100%', c:'#2ecc71', t:'💪 Très fort !' }
+      ];
+      const cfg = configs[Math.min(score, 4)];
+      fill.style.cssText = `width:${cfg.w}; background:${cfg.c}; height:100%; border-radius:3px;`;
+      label.style.color = cfg.c;
+      label.textContent = cfg.t;
+    }
+
+    function confirmerPassword(val) {
+      const hint = document.getElementById('hint-password2');
+      const pass = document.getElementById('password').value;
+      if (val === pass && val.length > 0) {
+        hint.textContent = '✅ Les mots de passe correspondent'; hint.className = 'input-hint succes';
+      } else if (val.length > 0) {
+        hint.textContent = '❌ Les mots de passe ne correspondent pas'; hint.className = 'input-hint erreur';
+      }
+    }
+
+    // === NAVIGATION ÉTAPES ===
+    function afficherErreur(msg) {
+      const el = document.getElementById('msgErreur');
+      el.textContent = '⚠️ ' + msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 4000);
+    }
+
+    function majIndicateur(etapeActuelle) {
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('dot' + i);
+        if (i < etapeActuelle) { dot.textContent = '✓'; dot.className = 'step-dot fait'; }
+        else if (i === etapeActuelle) { dot.textContent = i; dot.className = 'step-dot actif'; }
+        else { dot.textContent = i; dot.className = 'step-dot'; }
+        if (i < 3) {
+          const line = document.getElementById('line' + i);
+          line.className = i < etapeActuelle ? 'step-line fait' : 'step-line';
+        }
+      }
+    }
+
+    function etapeSuivante(etape) {
+      if (etape === 1) {
+        const prenom = document.getElementById('prenom').value.trim();
+        const nom = document.getElementById('nom').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!prenom || prenom.length < 2) { afficherErreur('Entre ton prénom (min. 2 caractères).'); return; }
+        if (!nom || nom.length < 2) { afficherErreur('Entre ton nom (min. 2 caractères).'); return; }
+        if (!email || !regex.test(email)) { afficherErreur('Entre une adresse email valide.'); return; }
+        // Vérifier email existant
+        let membres = JSON.parse(localStorage.getItem('biblioafrik_membres') || '[]');
+        if (membres.find(m => m.email === email)) { afficherErreur('Cet email est déjà utilisé. Connecte-toi !'); return; }
+      }
+      if (etape === 2) {
+        const pays = document.getElementById('pays').value;
+        const profil = document.getElementById('profil').value;
+        if (!pays) { afficherErreur('Sélectionne ton pays.'); return; }
+        if (!profil) { afficherErreur('Sélectionne ton profil.'); return; }
+      }
+      document.getElementById('step' + etape).classList.remove('actif');
+      document.getElementById('step' + (etape + 1)).classList.add('actif');
+      majIndicateur(etape + 1);
+    }
+
+    function etapePrecedente(etape) {
+      document.getElementById('step' + etape).classList.remove('actif');
+      document.getElementById('step' + (etape - 1)).classList.add('actif');
+      majIndicateur(etape - 1);
+    }
+
+    // === CRÉER LE COMPTE ===
+    function creerCompte() {
+      const password = document.getElementById('password').value;
+      const password2 = document.getElementById('password2').value;
+      const conditions = document.getElementById('conditions').checked;
+
+      if (password.length < 6) { afficherErreur('Le mot de passe doit avoir au moins 6 caractères.'); return; }
+      if (password !== password2) { afficherErreur('Les mots de passe ne correspondent pas.'); return; }
+      if (!conditions) { afficherErreur('Accepte les conditions d\'utilisation pour continuer.'); return; }
+
+      // Récupérer catégories favorites
+      const cats = [];
+      document.querySelectorAll('.cat-check input:checked').forEach(c => cats.push(c.value));
+
+      // Créer le membre
+      const newMembre = {
+        id: Date.now(),
+        prenom: document.getElementById('prenom').value.trim(),
+        nom: document.getElementById('nom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        telephone: document.getElementById('telephone').value.trim(),
+        pays: document.getElementById('pays').value,
+        profil: document.getElementById('profil').value,
+        naissance: document.getElementById('naissance').value,
+        ecole: document.getElementById('ecole').value.trim(),
+        password,
+        categories: cats,
+        newsletter: document.getElementById('newsletter').checked,
+        dateInscription: new Date().toLocaleDateString('fr-FR'),
+        telechargements: 0,
+        favoris: [],
+        badge: 'Nouveau membre 🌱'
+      };
+
+      let membres = JSON.parse(localStorage.getItem('biblioafrik_membres') || '[]');
+      membres.push(newMembre);
+      localStorage.setItem('biblioafrik_membres', JSON.stringify(membres));
+      localStorage.setItem('biblioafrik_user_actif', JSON.stringify(newMembre));
+
+      // Afficher confirmation
+      document.getElementById('step3').classList.remove('actif');
+      document.getElementById('confirmation').style.display = 'block';
+      majIndicateur(4);
+
+      setTimeout(() => { window.location.href = 'profil.html'; }, 2500);
+    }
+  </script>
+</body>
+</html>
+```
+
+---

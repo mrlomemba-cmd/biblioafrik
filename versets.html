@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Versets Bibliques — BiblioAfrik</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div id="versetDuJour"></div>
+
+  <nav>
+    <div class="logo">📚 BiblioAfrik</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="bibliotheque.html">Bibliothèque</a></li>
+      <li><a href="apropos.html">Notre Histoire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle">🌙</button>
+      <a href="connexion.html" class="btn-nav-login" id="btnLogin">🔐 Connexion</a>
+      <a href="inscription.html" class="btn-nav-register" id="btnRegister">✨ S'inscrire</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="histoire-hero">
+    <div class="avatar">✝️</div>
+    <h1>Versets Bibliques</h1>
+    <p>50 versets inspirants pour chaque jour de ta vie</p>
+  </section>
+
+  <!-- PUB -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <!-- VERSET DU JOUR MIS EN AVANT -->
+  <section style="padding:40px 5%;text-align:center;background:var(--surface);">
+    <h2 style="color:var(--text);margin-bottom:8px;font-size:1.5rem;">
+      ✨ Verset du Jour
+    </h2>
+    <p style="color:var(--gray);margin-bottom:30px;">Un nouveau verset chaque jour pour t'inspirer</p>
+    <div id="versetHero" style="max-width:700px;margin:0 auto;background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;padding:40px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+    </div>
+  </section>
+
+  <!-- TOUS LES VERSETS -->
+  <section style="background:var(--bg);padding:20px 0 60px;">
+    <h2 style="text-align:center;color:var(--text);padding:30px 5% 10px;font-size:1.5rem;">
+      📖 Tous les Versets
+    </h2>
+    <div class="versets-grid" id="tousVersets"></div>
+  </section>
+
+  <!-- PUB AVANT FOOTER -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="logo">📚 BiblioAfrik</div>
+        <p>La bibliothèque numérique internationale gratuite.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="social-btn telegram"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="bibliotheque.html">Bibliothèque</a></li>
+          <li><a href="bibliotheque.html?cat=chretien">✝️ Chrétien</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p>
+    </div>
+  </footer>
+
+  <script src="js/verset.js"></script>
+  <script>
+    // Dark mode
+    const toggle = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme','dark'); toggle.textContent='☀️'; }
+    toggle.addEventListener('click', () => {
+      const d = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', d ? 'light' : 'dark');
+      toggle.textContent = d ? '🌙' : '☀️';
+      localStorage.setItem('theme', d ? 'light' : 'dark');
+    });
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navMenu').classList.toggle('ouvert');
+    });
+
+    // Connexion
+    const user = JSON.parse(localStorage.getItem('biblioafrik_user_actif') || 'null');
+    if (user) {
+      document.getElementById('btnLogin').textContent = '👤 ' + user.prenom;
+      document.getElementById('btnLogin').href = 'profil.html';
+      document.getElementById('btnRegister').textContent = '🚪 Déco';
+      document.getElementById('btnRegister').href = '#';
+      document.getElementById('btnRegister').onclick = () => { localStorage.removeItem('biblioafrik_user_actif'); location.reload(); };
+    }
+
+    // Verset hero mis en avant
+    const v = getVersetDuJour();
+    document.getElementById('versetHero').innerHTML = `
+      <div style="font-size:0.75rem;color:#f0a500;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;">
+        <i class="fas fa-cross"></i> ${new Date().toLocaleDateString('fr-FR', {weekday:'long',day:'numeric',month:'long'})}
+      </div>
+      <blockquote style="font-size:clamp(1rem,2vw,1.2rem);font-style:italic;line-height:1.7;margin:0 0 15px;opacity:0.95;">
+        "${v.texte}"
+      </blockquote>
+      <div style="color:#f0a500;font-weight:700;">— ${v.ref}</div>
+      <button onclick="partagerVerset('${v.ref}', \`${v.texte.replace(/`/g, "'")}\`)"
+        style="margin-top:20px;background:#f0a500;color:#1a1a2e;border:none;padding:10px 22px;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">
+        <i class="fas fa-share-alt"></i> Partager ce verset
+      </button>
+    `;
+
+    // Afficher tous les versets
+    afficherTousVersets();
+  </script>
+</body>
+</html>

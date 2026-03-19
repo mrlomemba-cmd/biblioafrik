@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conditions d'utilisation — BiblioAfrik</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    .legal-hero {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: white;
+      text-align: center;
+      padding: 80px 5% 60px;
+    }
+    .legal-hero span { font-size: 4rem; display: block; margin-bottom: 15px; }
+    .legal-hero h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 10px; }
+    .legal-hero p { opacity: 0.8; font-size: 0.95rem; }
+
+    .legal-nav {
+      background: var(--surface);
+      padding: 20px 5%;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 65px;
+      z-index: 99;
+    }
+
+    .legal-nav a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 2px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .legal-nav a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .legal-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 5%;
+    }
+
+    .legal-section {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 20px var(--shadow);
+      border-left: 4px solid var(--accent);
+    }
+
+    .legal-section h2 {
+      color: var(--text);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .legal-section h3 {
+      color: var(--text);
+      font-size: 1rem;
+      margin: 20px 0 10px;
+    }
+
+    .legal-section p {
+      color: var(--text2);
+      line-height: 1.8;
+      font-size: 0.92rem;
+      margin-bottom: 12px;
+    }
+
+    .legal-section ul {
+      padding-left: 20px;
+      color: var(--text2);
+      font-size: 0.92rem;
+      line-height: 1.9;
+    }
+
+    .legal-section ul li { margin-bottom: 6px; }
+
+    .highlight-box {
+      background: rgba(240,165,0,0.1);
+      border: 1px solid rgba(240,165,0,0.3);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .danger-box {
+      background: rgba(231,76,60,0.08);
+      border: 1px solid rgba(231,76,60,0.3);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .legal-date {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-bottom: 40px;
+      padding: 15px;
+      background: var(--surface);
+      border-radius: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .tab-btn.actif, .tab-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.actif { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">📚 BiblioAfrik</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="bibliotheque.html">Bibliothèque</a></li>
+      <li><a href="apropos.html">Notre Histoire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="dark-toggle" id="darkToggle">🌙</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <span>⚖️</span>
+    <h1>Politique & Conditions</h1>
+    <p>Dernière mise à jour : 13 mars 2026 — Lisez attentivement avant d'utiliser BiblioAfrik</p>
+  </section>
+
+  <!-- CONTENU -->
+  <div class="legal-content">
+
+    <div class="legal-date">
+      📅 Ces documents sont en vigueur depuis le <strong>13 mars 2026</strong>.
+      En utilisant BiblioAfrik, vous acceptez l'ensemble de ces conditions.
+    </div>
+
+    <!-- ONGLETS -->
+    <div class="tabs">
+      <button class="tab-btn actif" onclick="afficherTab('conditions', this)">📋 Conditions d'utilisation</button>
+      <button class="tab-btn" onclick="afficherTab('confidentialite', this)">🔒 Politique de confidentialité</button>
+      <button class="tab-btn" onclick="afficherTab('cookies', this)">🍪 Politique des cookies</button>
+      <button class="tab-btn" onclick="afficherTab('droits', this)">©️ Droits d'auteur</button>
+    </div>
+
+    <!-- ONGLET 1 : CONDITIONS D'UTILISATION -->
+    <div class="tab-content actif" id="tab-conditions">
+
+      <div class="legal-section">
+        <h2>📌 1. Présentation de BiblioAfrik</h2>
+        <p>BiblioAfrik est une bibliothèque numérique gratuite et internationale, destinée à tous les francophones du monde entier. Notre mission est de rendre le savoir accessible à tous, sans discrimination de niveau social, économique ou géographique.</p>
+        <div class="highlight-box">
+          💡 <strong>Notre engagement :</strong> BiblioAfrik sera toujours gratuit pour les lecteurs. Nous croyons que le savoir est un droit fondamental, pas un privilège.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>✅ 2. Acceptation des conditions</h2>
+        <p>En accédant à BiblioAfrik et en créant un compte, vous acceptez pleinement et sans réserve les présentes conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre plateforme.</p>
+        <p>Ces conditions s'appliquent à :</p>
+        <ul>
+          <li>Tous les visiteurs du site, avec ou sans compte</li>
+          <li>Tous les membres inscrits</li>
+          <li>Tous les contributeurs de contenu</li>
+          <li>Les partenaires et établissements scolaires</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>👤 3. Création de compte</h2>
+        <p>Pour bénéficier de toutes les fonctionnalités de BiblioAfrik, vous pouvez créer un compte gratuit. En créant un compte, vous vous engagez à :</p>
+        <ul>
+          <li>Fournir des informations exactes et complètes</li>
+          <li>Maintenir la confidentialité de votre mot de passe</li>
+          <li>Ne pas créer plusieurs comptes avec la même identité</li>
+          <li>Signaler immédiatement toute utilisation non autorisée de votre compte</li>
+          <li>Avoir au moins 13 ans pour s'inscrire</li>
+        </ul>
+        <div class="highlight-box">
+          🔐 <strong>Sécurité :</strong> Vous êtes responsable de toutes les activités effectuées sous votre compte. Choisissez un mot de passe fort et ne le partagez jamais.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>📚 4. Utilisation des contenus</h2>
+        <h3>Ce que vous pouvez faire :</h3>
+        <ul>
+          <li>✅ Télécharger les documents pour un usage personnel et éducatif</li>
+          <li>✅ Partager les liens vers BiblioAfrik avec d'autres personnes</li>
+          <li>✅ Utiliser les documents pour étudier, apprendre et enseigner</li>
+          <li>✅ Contribuer en ajoutant des ressources libres de droits</li>
+        </ul>
+        <h3>Ce que vous ne pouvez pas faire :</h3>
+        <ul>
+          <li>❌ Revendre ou commercialiser les documents téléchargés</li>
+          <li>❌ Republier les contenus sans mentionner BiblioAfrik</li>
+          <li>❌ Utiliser les contenus à des fins illégales</li>
+          <li>❌ Tenter de pirater ou déstabiliser la plateforme</li>
+          <li>❌ Publier des contenus haineux, offensants ou illégaux</li>
+        </ul>
+        <div class="danger-box">
+          ⚠️ <strong>Violation :</strong> Tout non-respect de ces règles entraînera la suspension immédiate du compte et pourra faire l'objet de poursuites légales.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>🌍 5. Contenu communautaire</h2>
+        <p>BiblioAfrik permet aux membres de contribuer en partageant des ressources. En publiant du contenu, vous garantissez que :</p>
+        <ul>
+          <li>Vous êtes propriétaire du contenu ou avez les droits pour le partager</li>
+          <li>Le contenu ne viole aucun droit d'auteur</li>
+          <li>Le contenu est légal, respectueux et adapté à tous les âges</li>
+          <li>Vous accordez à BiblioAfrik une licence gratuite pour héberger ce contenu</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>🚫 6. Contenu interdit</h2>
+        <p>Il est strictement interdit de publier ou partager sur BiblioAfrik :</p>
+        <ul>
+          <li>Du contenu pornographique ou sexuellement explicite</li>
+          <li>Du contenu promouvant la violence, la haine ou la discrimination</li>
+          <li>Du contenu illégal ou encourageant des activités illicites</li>
+          <li>Des logiciels malveillants ou virus</li>
+          <li>Des informations personnelles d'autres personnes sans leur consentement</li>
+          <li>Du contenu protégé par droits d'auteur sans autorisation</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>⚖️ 7. Limitation de responsabilité</h2>
+        <p>BiblioAfrik met tout en œuvre pour assurer la qualité et l'exactitude des contenus disponibles. Cependant :</p>
+        <ul>
+          <li>Nous ne garantissons pas l'exactitude de tous les documents publiés par des tiers</li>
+          <li>Nous ne sommes pas responsables de l'usage que vous faites des contenus</li>
+          <li>Nous ne garantissons pas une disponibilité ininterrompue du service</li>
+          <li>Nous nous réservons le droit de modifier ou supprimer tout contenu</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>🔄 8. Modification des conditions</h2>
+        <p>BiblioAfrik se réserve le droit de modifier ces conditions à tout moment. Les modifications entrent en vigueur dès leur publication sur cette page. Nous vous informerons des changements importants par email.</p>
+      </div>
+
+    </div>
+
+    <!-- ONGLET 2 : CONFIDENTIALITÉ -->
+    <div class="tab-content" id="tab-confidentialite">
+
+      <div class="legal-section">
+        <h2>🔒 1. Données collectées</h2>
+        <p>Lors de votre inscription et utilisation de BiblioAfrik, nous collectons les informations suivantes :</p>
+        <h3>Données d'identification :</h3>
+        <ul>
+          <li>Prénom et nom</li>
+          <li>Adresse email</li>
+          <li>Pays de résidence</li>
+          <li>Profil utilisateur (étudiant, enseignant, etc.)</li>
+        </ul>
+        <h3>Données d'utilisation :</h3>
+        <ul>
+          <li>Documents téléchargés</li>
+          <li>Documents mis en favoris</li>
+          <li>Date et heure de connexion</li>
+          <li>Préférences de navigation (thème clair/sombre)</li>
+        </ul>
+        <div class="highlight-box">
+          💡 <strong>Important :</strong> Nous ne collectons jamais vos données bancaires ou financières. BiblioAfrik est et restera gratuit.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>🎯 2. Utilisation de vos données</h2>
+        <p>Vos données personnelles sont utilisées uniquement pour :</p>
+        <ul>
+          <li>✅ Gérer votre compte et vous identifier</li>
+          <li>✅ Vous envoyer les newsletters auxquelles vous vous êtes inscrit(e)</li>
+          <li>✅ Améliorer nos services et contenus</li>
+          <li>✅ Vous notifier des nouveaux contenus selon vos préférences</li>
+          <li>✅ Assurer la sécurité de la plateforme</li>
+        </ul>
+        <div class="danger-box">
+          🚫 <strong>Nous ne vendons JAMAIS vos données</strong> à des tiers, annonceurs ou entreprises. Vos informations restent privées.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>🛡️ 3. Protection de vos données</h2>
+        <p>Nous mettons en place des mesures techniques et organisationnelles pour protéger vos données :</p>
+        <ul>
+          <li>Stockage sécurisé des mots de passe</li>
+          <li>Accès restreint aux données personnelles</li>
+          <li>Surveillance continue de la sécurité</li>
+          <li>Sauvegarde régulière des données</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>📧 4. Communications</h2>
+        <p>En créant un compte, vous acceptez de recevoir :</p>
+        <ul>
+          <li>Les emails de confirmation et de sécurité (obligatoires)</li>
+          <li>La newsletter si vous vous y êtes inscrit(e) (optionnel)</li>
+          <li>Les notifications de nouveaux contenus (désactivables)</li>
+        </ul>
+        <p>Vous pouvez vous désabonner à tout moment en cliquant sur le lien de désabonnement dans nos emails.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>👁️ 5. Vos droits</h2>
+        <p>Conformément aux lois sur la protection des données, vous avez le droit de :</p>
+        <ul>
+          <li>🔍 <strong>Accéder</strong> à toutes vos données personnelles</li>
+          <li>✏️ <strong>Modifier</strong> vos informations à tout moment</li>
+          <li>🗑️ <strong>Supprimer</strong> votre compte et toutes vos données</li>
+          <li>📤 <strong>Exporter</strong> vos données dans un format lisible</li>
+          <li>🚫 <strong>Vous opposer</strong> au traitement de vos données</li>
+        </ul>
+        <p>Pour exercer ces droits, contactez-nous à : <strong>privacy@biblioafrik.com</strong></p>
+      </div>
+
+      <div class="legal-section">
+        <h2>👶 6. Protection des mineurs</h2>
+        <p>BiblioAfrik est accessible à partir de 13 ans. Nous ne collectons pas sciemment de données personnelles sur des enfants de moins de 13 ans. Si vous pensez qu'un mineur de moins de 13 ans a créé un compte, contactez-nous immédiatement.</p>
+      </div>
+
+    </div>
+
+    <!-- ONGLET 3 : COOKIES -->
+    <div class="tab-content" id="tab-cookies">
+
+      <div class="legal-section">
+        <h2>🍪 1. Qu'est-ce qu'un cookie ?</h2>
+        <p>Un cookie est un petit fichier texte stocké sur votre appareil lorsque vous visitez un site web. Il permet au site de mémoriser vos préférences et d'améliorer votre expérience.</p>
+        <div class="highlight-box">
+          💡 BiblioAfrik utilise un nombre minimal de cookies, tous dans le but d'améliorer votre expérience. Nous ne traçons pas votre comportement à des fins publicitaires.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>📋 2. Cookies utilisés par BiblioAfrik</h2>
+        <h3>Cookies essentiels (obligatoires) :</h3>
+        <ul>
+          <li><strong>biblioafrik_user_actif</strong> — Garde ta session active (connexion)</li>
+          <li><strong>theme</strong> — Mémorise ta préférence de thème (clair/sombre)</li>
+        </ul>
+        <h3>Cookies de préférence (optionnels) :</h3>
+        <ul>
+          <li><strong>biblioafrik_docs</strong> — Sauvegarde les documents localement</li>
+          <li><strong>biblioafrik_emails</strong> — Liste des emails inscrits à la newsletter</li>
+        </ul>
+        <div class="highlight-box">
+          ✅ <strong>Bonne nouvelle :</strong> BiblioAfrik utilise le stockage local (localStorage) de ton navigateur. Vos données ne quittent jamais votre appareil.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>⚙️ 3. Gérer les cookies</h2>
+        <p>Vous pouvez contrôler et supprimer les cookies à tout moment depuis votre navigateur :</p>
+        <ul>
+          <li><strong>Chrome :</strong> Paramètres → Confidentialité → Cookies</li>
+          <li><strong>Firefox :</strong> Paramètres → Vie privée → Cookies</li>
+          <li><strong>Safari :</strong> Préférences → Confidentialité → Cookies</li>
+          <li><strong>Edge :</strong> Paramètres → Confidentialité → Cookies</li>
+        </ul>
+        <div class="danger-box">
+          ⚠️ La suppression des cookies essentiels peut affecter votre expérience sur BiblioAfrik (déconnexion automatique, perte des préférences).
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ONGLET 4 : DROITS D'AUTEUR -->
+    <div class="tab-content" id="tab-droits">
+
+      <div class="legal-section">
+        <h2>©️ 1. Propriété intellectuelle de BiblioAfrik</h2>
+        <p>Le nom "BiblioAfrik", le logo, le design, le code source et tous les éléments originaux de la plateforme sont la propriété exclusive de BiblioAfrik. Toute reproduction sans autorisation est interdite.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>📄 2. Contenus hébergés</h2>
+        <p>BiblioAfrik héberge plusieurs types de contenus :</p>
+        <ul>
+          <li><strong>Contenus libres de droits :</strong> Documents du domaine public, licences Creative Commons</li>
+          <li><strong>Contenus contributeurs :</strong> Documents partagés par les membres avec leur autorisation</li>
+          <li><strong>Contenus partenaires :</strong> Documents fournis par des établissements partenaires</li>
+        </ul>
+        <div class="highlight-box">
+          📌 <strong>Politique de tolérance zéro :</strong> Tout contenu violant les droits d'auteur sera supprimé immédiatement dès signalement.
+        </div>
+      </div>
+
+      <div class="legal-section">
+        <h2>🚨 3. Signaler une violation</h2>
+        <p>Si vous pensez qu'un contenu sur BiblioAfrik viole vos droits d'auteur, contactez-nous immédiatement :</p>
+        <ul>
+          <li>📧 Email : <strong>droits@biblioafrik.com</strong></li>
+          <li>📋 Formulaire : Page Contact → Sujet "Droits d'auteur"</li>
+        </ul>
+        <p>Nous traiterons votre demande dans les <strong>48 heures</strong> et supprimerons le contenu incriminé si la violation est avérée.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>🤝 4. Licence d'utilisation</h2>
+        <p>En téléchargeant un document sur BiblioAfrik, vous obtenez une licence personnelle, non exclusive et non commerciale pour :</p>
+        <ul>
+          <li>✅ Lire et étudier le document</li>
+          <li>✅ L'utiliser à des fins éducatives personnelles</li>
+          <li>✅ Le partager avec des liens vers BiblioAfrik</li>
+        </ul>
+        <p>Cette licence ne vous permet pas de :</p>
+        <ul>
+          <li>❌ Vendre ou commercialiser le document</li>
+          <li>❌ Le republier sur d'autres plateformes sans autorisation</li>
+          <li>❌ Le modifier et le présenter comme votre création</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- CONTACT LÉGAL -->
+    <div class="legal-section" style="border-left-color: #2ecc71;">
+      <h2>📬 Nous contacter pour questions légales</h2>
+      <p>Pour toute question relative à ces politiques, contactez notre équipe légale :</p>
+      <ul>
+        <li>📧 <strong>contact@biblioafrik.com</strong> — Questions générales</li>
+        <li>📧 <strong>privacy@biblioafrik.com</strong> — Protection des données</li>
+        <li>📧 <strong>droits@biblioafrik.com</strong> — Droits d'auteur</li>
+      </ul>
+      <a href="contact.html" class="btn" style="display:inline-block; margin-top:20px;">
+        ✉️ Nous contacter
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 BiblioAfrik — <a href="conditions.html" style="color:#f0a500;">Conditions</a> · <a href="conditions.html" style="color:#f0a500;">Confidentialité</a> · <a href="contact.html" style="color:#f0a500;">Contact</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode
+    const toggle = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme','dark'); toggle.textContent='☀️'; }
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      toggle.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navMenu').classList.toggle('ouvert');
+    });
+
+    // Onglets
+    function afficherTab(nom, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('actif'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('actif'));
+      document.getElementById('tab-' + nom).classList.add('actif');
+      btn.classList.add('actif');
+    }
+  </script>
+</body>
+</html>

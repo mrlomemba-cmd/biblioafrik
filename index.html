@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="BiblioAfrik — Bibliothèque numérique internationale gratuite pour tous les francophones"/>
+  <title>BiblioAfrik — Bibliothèque Numérique Internationale</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
+</head>
+<script src="js/verset.js"></script>
+<body>
+    <!-- VERSET DU JOUR -->
+<div id="versetDuJour"></div>
+
+  <nav>
+    <div class="logo">📚 BiblioAfrik</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="bibliotheque.html">Bibliothèque</a></li>
+      <li><a href="apropos.html">Notre Histoire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle">🌙</button>
+      <div class="notif-bell" id="notifBell" onclick="toggleNotifs()" style="display:none;">
+        🔔
+        <span class="notif-count" id="notifCount">0</span>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header"><h4>🔔 Notifications</h4><button onclick="toutMarquerLu()">Tout lire</button></div>
+          <div id="notifListe"></div>
+        </div>
+      </div>
+      <a href="connexion.html" class="btn-nav-login" id="btnLogin">🔐 Connexion</a>
+      <a href="inscription.html" class="btn-nav-register" id="btnRegister">✨ S'inscrire</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌍 Plateforme Internationale Francophone</div>
+      <h1>Tout le Savoir du Monde,<br/><span>En Un Seul Endroit.</span></h1>
+      <p>Cours, livres chrétiens, sport, histoires inspirantes et motivation — pour tous, partout dans le monde, gratuitement.</p>
+      <div class="hero-buttons">
+        <a href="inscription.html" class="btn">🚀 Créer mon compte gratuit</a>
+        <a href="bibliotheque.html" class="btn btn-outline">Explorer →</a>
+      </div>
+      <div class="hero-trust">
+        <span>✅ 100% Gratuit</span>
+        <span>✅ International</span>
+        <span>✅ Toutes catégories</span>
+        <span>✅ Mobile friendly</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card fc1">📖 Cours</div>
+      <div class="floating-card fc2">✝️ Chrétien</div>
+      <div class="floating-card fc3">⚽ Sport</div>
+      <div class="floating-card fc4">💪 Motivation</div>
+      <div class="floating-card fc5">📜 Histoires</div>
+      <div class="hero-circle"></div>
+    </div>
+  </header>
+
+  <!-- PUB APRÈS HERO -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <section class="stats">
+    <div class="stat-card"><h2 class="count" data-target="1000">0</h2><p>Documents disponibles</p></div>
+    <div class="stat-card"><h2 class="count" data-target="50">0</h2><p>Pays membres</p></div>
+    <div class="stat-card"><h2>100%</h2><p>Gratuit pour toujours</p></div>
+    <div class="stat-card"><h2 class="count" data-target="6">0</h2><p>Catégories</p></div>
+  </section>
+
+  <section class="categories">
+    <h2>Explore Toutes les Catégories</h2>
+    <p class="subtitle">Une plateforme complète pour grandir dans tous les domaines</p>
+    <div class="cat-grid-large">
+      <a href="bibliotheque.html?cat=cours" class="cat-card-large cat-cours">
+        <div class="cat-large-icon">📚</div>
+        <div class="cat-large-info"><h3>Cours & Éducation</h3><p>Maths, Physique, Français, Informatique et plus</p><span class="cat-count">500+ documents</span></div>
+      </a>
+      <a href="bibliotheque.html?cat=chretien" class="cat-card-large cat-chretien">
+        <div class="cat-large-icon">✝️</div>
+        <div class="cat-large-info"><h3>Livres Chrétiens</h3><p>Bible, prières, études bibliques, témoignages</p><span class="cat-count">200+ livres</span></div>
+      </a>
+      <a href="bibliotheque.html?cat=sport" class="cat-card-large cat-sport">
+        <div class="cat-large-icon">⚽</div>
+        <div class="cat-large-info"><h3>Sport & Santé</h3><p>Entraînements, nutrition, biographies d'athlètes</p><span class="cat-count">150+ ressources</span></div>
+      </a>
+      <a href="bibliotheque.html?cat=histoires" class="cat-card-large cat-histoires">
+        <div class="cat-large-icon">📜</div>
+        <div class="cat-large-info"><h3>Histoires & Romans</h3><p>Contes africains, romans, histoires vraies</p><span class="cat-count">300+ histoires</span></div>
+      </a>
+      <a href="bibliotheque.html?cat=motivation" class="cat-card-large cat-motivation">
+        <div class="cat-large-icon">💪</div>
+        <div class="cat-large-info"><h3>Motivation & Développement</h3><p>Développement personnel, entrepreneuriat</p><span class="cat-count">250+ livres</span></div>
+      </a>
+      <a href="bibliotheque.html?cat=culture" class="cat-card-large cat-culture">
+        <div class="cat-large-icon">🌍</div>
+        <div class="cat-large-info"><h3>Culture & Patrimoine</h3><p>Histoire africaine, langues, art, traditions</p><span class="cat-count">180+ ressources</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PUB ENTRE SECTIONS -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <section class="why-register">
+    <div class="why-content">
+      <h2>Pourquoi Créer un Compte ?</h2>
+      <p class="subtitle">Gratuit, rapide et plein d'avantages</p>
+      <div class="benefits-grid">
+        <div class="benefit"><span>📥</span><h3>Téléchargements illimités</h3><p>Accède à tous les documents sans restriction</p></div>
+        <div class="benefit"><span>🔖</span><h3>Favoris & Collections</h3><p>Sauvegarde tes documents préférés</p></div>
+        <div class="benefit"><span>🔔</span><h3>Notifications</h3><p>Sois alerté des nouveaux contenus</p></div>
+        <div class="benefit"><span>🌍</span><h3>Communauté mondiale</h3><p>Rejoins des milliers de membres actifs</p></div>
+        <div class="benefit"><span>📤</span><h3>Partage tes ressources</h3><p>Contribue en partageant tes documents</p></div>
+        <div class="benefit"><span>🏆</span><h3>Badges & Récompenses</h3><p>Gagne des badges en lisant et partageant</p></div>
+      </div>
+      <a href="inscription.html" class="btn" style="margin-top:40px;display:inline-block;">🚀 Créer mon compte gratuit</a>
+    </div>
+  </section>
+
+  <section class="temoignages">
+    <h2>Ils nous font confiance</h2>
+    <p class="subtitle">Des membres de partout dans le monde</p>
+    <div class="temoignages-grid">
+      <div class="temoignage-card">
+        <p>"Les livres de motivation ont complètement changé ma façon de voir la vie. Merci BiblioAfrik !"</p>
+        <div class="temoignage-auteur"><span class="avatar-emoji">👨🏾‍🎓</span><div><strong>Kofi A.</strong><small>🇬🇭 Ghana</small></div></div>
+      </div>
+      <div class="temoignage-card">
+        <p>"La section chrétienne est incroyable. J'ai trouvé des études bibliques que je cherchais depuis longtemps."</p>
+        <div class="temoignage-auteur"><span class="avatar-emoji">👩🏾‍🙏</span><div><strong>Marie-Claire N.</strong><small>🇨🇩 RDC</small></div></div>
+      </div>
+      <div class="temoignage-card">
+        <p>"Les ressources sportives sont top ! Programmes d'entraînement, nutrition... tout ce qu'il faut."</p>
+        <div class="temoignage-auteur"><span class="avatar-emoji">🏃🏿‍♂️</span><div><strong>Ibrahim S.</strong><small>🇸🇳 Sénégal</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUB AVANT NEWSLETTER -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <section class="newsletter">
+    <div class="newsletter-content">
+      <h2>📬 Reçois les nouveaux contenus</h2>
+      <p>Inscris-toi et sois le premier informé des nouveaux livres, cours et ressources.</p>
+      <form class="newsletter-form" onsubmit="inscrireNewsletter(event)">
+        <input type="email" id="emailNewsletter" placeholder="Ton adresse email..." required/>
+        <button type="submit">S'inscrire gratuitement →</button>
+      </form>
+      <p class="newsletter-note">🔒 Aucun spam. Désabonnement en 1 clic.</p>
+      <div class="newsletter-succes" id="newsletterSucces">✅ Merci ! Tu recevras les prochains contenus par email.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="logo">📚 BiblioAfrik</div>
+        <p>La bibliothèque numérique internationale gratuite pour tous les francophones.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="social-btn telegram"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" class="social-btn twitter"><i class="fab fa-x-twitter"></i> Twitter / X</a>
+          <a href="#" class="social-btn instagram"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="bibliotheque.html">Bibliothèque</a></li>
+          <li><a href="inscription.html">S'inscrire</a></li>
+          <li><a href="connexion.html">Se connecter</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Catégories</h4>
+        <ul>
+          <li><a href="bibliotheque.html?cat=cours">📚 Cours & Éducation</a></li>
+          <li><a href="bibliotheque.html?cat=chretien">✝️ Livres Chrétiens</a></li>
+          <li><a href="bibliotheque.html?cat=sport">⚽ Sport & Santé</a></li>
+          <li><a href="bibliotheque.html?cat=motivation">💪 Motivation</a></li>
+          <li><a href="bibliotheque.html?cat=histoires">📜 Histoires</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="conditions.html">⚖️ Conditions d'utilisation</a></li>
+          <li><a href="conditions.html">🔒 Confidentialité</a></li>
+          <li><a href="contact.html">✉️ Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script>
+    const toggle = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme','dark'); toggle.textContent='☀️'; }
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      toggle.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+    function animerCompteurs() {
+      document.querySelectorAll('.count').forEach(el => {
+        const target = parseInt(el.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 60;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) { el.textContent = target + '+'; clearInterval(timer); }
+          else { el.textContent = Math.floor(current) + '+'; }
+        }, 25);
+      });
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animerCompteurs(); observer.disconnect(); } });
+    });
+    if (document.querySelector('.stats')) observer.observe(document.querySelector('.stats'));
+    function inscrireNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailNewsletter').value;
+      let emails = JSON.parse(localStorage.getItem('biblioafrik_emails') || '[]');
+      if (!emails.includes(email)) emails.push(email);
+      localStorage.setItem('biblioafrik_emails', JSON.stringify(emails));
+      document.getElementById('newsletterSucces').style.display = 'block';
+      document.getElementById('emailNewsletter').value = '';
+    }
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navMenu').classList.toggle('ouvert');
+    });
+    const user = JSON.parse(localStorage.getItem('biblioafrik_user_actif') || 'null');
+    if (user) {
+      document.getElementById('btnLogin').textContent = '👤 ' + user.prenom;
+      document.getElementById('btnLogin').href = 'profil.html';
+      document.getElementById('btnRegister').textContent = '🚪 Déconnexion';
+      document.getElementById('btnRegister').href = '#';
+      document.getElementById('btnRegister').onclick = () => { localStorage.removeItem('biblioafrik_user_actif'); location.reload(); };
+    }
+  </script>
+</body>
+</html>
