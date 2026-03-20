@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
 <head>
-  <!-- PWA -->
-<link rel="manifest" href="manifest.json"/>
-<meta name="theme-color" content="#f0a500"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="BiblioAfrik"/>
-<link rel="apple-touch-icon" href="icons/icon-192.png"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Notre Histoire — BiblioAfrik</title>
+  <meta name="description" content="Bibliothèque BiblioAfrik — 65+ documents gratuits"/>
+  <title>Bibliothèque — BiblioAfrik</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#f0a500"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="BiblioAfrik"/>
   <link rel="stylesheet" href="css/style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
+  <style>
+    .biblio-hero{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;text-align:center;padding:60px 5% 45px;}
+    .biblio-hero h1{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px;}
+    .biblio-hero p{opacity:.8;margin-bottom:25px;}
+    .mega-cats{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:20px 5%;background:var(--surface,#fff);border-bottom:2px solid var(--border,#e0e0e0);position:sticky;top:65px;z-index:90;}
+    .mega-cat{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;border:2px solid var(--border,#e0e0e0);background:var(--surface,#fff);font-family:'Poppins',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;color:var(--text,#333);transition:all 0.3s;}
+    .mega-cat:hover,.mega-cat.actif{background:#f0a500;border-color:#f0a500;color:#1a1a2e;transform:translateY(-2px);box-shadow:0 5px 15px rgba(240,165,0,0.3);}
+    .sous-filtres{display:none;flex-wrap:wrap;gap:8px;padding:15px 5%;background:var(--surface2,#f0f4ff);border-bottom:1px solid var(--border,#e0e0e0);}
+    .barre-resultats{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:var(--surface,#fff);border-bottom:1px solid var(--border,#e0e0e0);flex-wrap:wrap;gap:10px;}
+    #compteur{color:var(--gray,#888);font-size:0.9rem;font-weight:600;}
+    .tri{display:flex;align-items:center;gap:10px;font-size:0.85rem;color:var(--gray,#888);}
+    #triSelect{padding:7px 12px;border:2px solid var(--border,#e0e0e0);border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.85rem;background:var(--surface,#fff);color:var(--text,#333);outline:none;cursor:pointer;}
+    .doc-desc{font-size:0.78rem;color:var(--gray,#888);margin:4px 0 6px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .doc-actions{display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+    .btn-lire{background:#f0a500;color:#1a1a2e;padding:9px 14px;border-radius:10px;text-decoration:none;font-size:0.82rem;font-weight:700;white-space:nowrap;transition:all 0.3s;display:flex;align-items:center;gap:6px;justify-content:center;}
+    .btn-lire:hover{background:#e09400;transform:scale(1.05);}
+    .btn-dl{background:#0f3460;color:white;padding:9px 14px;border-radius:10px;text-decoration:none;font-size:0.9rem;font-weight:700;white-space:nowrap;transition:all 0.3s;display:flex;align-items:center;justify-content:center;}
+    .btn-dl:hover{background:#f0a500;color:#1a1a2e;transform:scale(1.05);}
+  </style>
 </head>
-<script src="js/verset.js"></script>
 <body>
-    <!-- VERSET DU JOUR -->
-<div id="versetDuJour"></div>
+
+  <!-- VERSET DU JOUR -->
+  <div id="versetDuJour"></div>
 
   <nav>
     <div class="logo">📚 BiblioAfrik</div>
@@ -32,18 +50,40 @@
     </ul>
     <div class="nav-actions">
       <button class="dark-toggle" id="darkToggle">🌙</button>
+      <div class="notif-bell" id="notifBell" onclick="toggleNotifs()" style="display:none;">
+        🔔
+        <span class="notif-count" id="notifCount">0</span>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header"><h4>🔔 Notifications</h4><button onclick="toutMarquerLu()">Tout lire</button></div>
+          <div id="notifListe"></div>
+        </div>
+      </div>
       <a href="connexion.html" class="btn-nav-login" id="btnLogin">🔐 Connexion</a>
       <a href="inscription.html" class="btn-nav-register" id="btnRegister">✨ S'inscrire</a>
     </div>
   </nav>
 
-  <section class="histoire-hero">
-    <div class="avatar">🧑🏾‍💻</div>
-    <h1>Notre Histoire</h1>
-    <p>Pourquoi j'ai créé BiblioAfrik</p>
+  <section class="biblio-hero">
+    <h1>📖 La Bibliothèque Mondiale</h1>
+    <p>Cours, livres chrétiens, sport, histoires, motivation — tout en un seul endroit</p>
+    <div class="search-bar">
+      <input type="text" id="recherche" placeholder="🔍 Cherche un livre, un cours, une catégorie..."/>
+    </div>
   </section>
 
-  <!-- PUB APRÈS HERO -->
+  <section class="mega-cats">
+    <div class="mega-cat actif" onclick="filtrerCategorie('tous',this)"><span>🌍</span> Tout</div>
+    <div class="mega-cat" onclick="filtrerCategorie('cours',this)"><span>📚</span> Cours</div>
+    <div class="mega-cat" onclick="filtrerCategorie('chretien',this)"><span>✝️</span> Chrétien</div>
+    <div class="mega-cat" onclick="filtrerCategorie('sport',this)"><span>⚽</span> Sport</div>
+    <div class="mega-cat" onclick="filtrerCategorie('histoires',this)"><span>📜</span> Histoires</div>
+    <div class="mega-cat" onclick="filtrerCategorie('motivation',this)"><span>💪</span> Motivation</div>
+    <div class="mega-cat" onclick="filtrerCategorie('culture',this)"><span>🎭</span> Culture</div>
+  </section>
+
+  <div class="sous-filtres" id="sousFiltres"></div>
+
+  <!-- PUB SOUS FILTRES -->
   <div class="pub-section">
     <div class="pub-container pub-horizontal">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
@@ -51,58 +91,32 @@
     </div>
   </div>
 
-  <section class="histoire-contenu">
-    <div class="histoire-bloc">
-      <span class="emoji-bloc">🌱</span>
-      <div>
-        <h2>D'où je viens</h2>
-        <p>Je suis un jeune passionné par le numérique, qui a appris à coder seul, sans ressources, sans école spécialisée. Je suis orphelin de père et de mère, et j'ai grandi avec l'envie de changer ma vie grâce à la technologie — et cette envie ne m'a jamais quitté.</p>
-      </div>
+  <div class="barre-resultats">
+    <span id="compteur">Chargement...</span>
+    <div class="tri">
+      <label>Trier par :</label>
+      <select id="triSelect" onchange="trierDocs()">
+        <option value="defaut">Par défaut</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+        <option value="niveau">Par niveau</option>
+        <option value="note">Mieux notés ⭐</option>
+      </select>
     </div>
-    <div class="histoire-bloc">
-      <span class="emoji-bloc">💡</span>
-      <div>
-        <h2>Pourquoi BiblioAfrik</h2>
-        <p>En apprenant seul, j'ai réalisé à quel point c'est difficile de trouver des cours de qualité, gratuits, en français, adaptés à nos réalités. J'ai créé BiblioAfrik pour que plus aucun étudiant africain ne soit bloqué par le manque de ressources.</p>
-      </div>
-    </div>
-    <div class="histoire-bloc">
-      <span class="emoji-bloc">🎯</span>
-      <div>
-        <h2>Notre Mission</h2>
-        <p>Le savoir ne devrait jamais être un privilège réservé à ceux qui ont les moyens. Chaque étudiant, chaque chrétien, chaque sportif, chaque passionné — quelle que soit sa situation — mérite d'accéder aux meilleures ressources. C'est le combat de BiblioAfrik.</p>
-      </div>
-    </div>
-    <div class="histoire-bloc">
-      <span class="emoji-bloc">🌍</span>
-      <div>
-        <h2>Une Plateforme Internationale</h2>
-        <p>BiblioAfrik a grandi au-delà des cours scolaires. Aujourd'hui c'est une bibliothèque internationale avec des livres chrétiens, des ressources sportives, des histoires inspirantes et des livres de motivation — pour tous les francophones du monde.</p>
-      </div>
-    </div>
-    <div class="histoire-bloc">
-      <span class="emoji-bloc">🤝</span>
-      <div>
-        <h2>Rejoins l'Aventure</h2>
-        <p>BiblioAfrik grandit grâce à toi. Si tu as des cours, des livres, des ressources à partager — envoie-les nous. Ensemble, on peut construire la plus grande bibliothèque numérique francophone du monde.</p>
-        <a href="inscription.html" class="btn" style="display:inline-block;margin-top:15px;">🚀 Rejoindre BiblioAfrik</a>
-      </div>
+  </div>
+
+  <section class="documents">
+    <div class="doc-grid" id="docGrid"></div>
+    <div class="aucun-resultat" id="aucunResultat">
+      <span>😔</span>
+      <p>Aucun document trouvé.</p>
+      <a href="bibliotheque.html" class="btn" style="margin-top:15px;display:inline-block;">
+        Voir tous les documents
+      </a>
     </div>
   </section>
 
-  <section class="valeurs">
-    <h2>Nos Valeurs</h2>
-    <div class="valeurs-grid">
-      <div class="valeur-card"><span>🆓</span><h3>Gratuit</h3><p>Toujours et pour toujours</p></div>
-      <div class="valeur-card"><span>🌍</span><h3>International</h3><p>Pour tous les francophones</p></div>
-      <div class="valeur-card"><span>📱</span><h3>Mobile</h3><p>Depuis n'importe quel téléphone</p></div>
-      <div class="valeur-card"><span>✝️</span><h3>Spirituel</h3><p>Ressources chrétiennes incluses</p></div>
-      <div class="valeur-card"><span>⚽</span><h3>Sport</h3><p>Corps et esprit sains</p></div>
-      <div class="valeur-card"><span>🤝</span><h3>Communauté</h3><p>Construite ensemble, pour tous</p></div>
-    </div>
-  </section>
-
-  <!-- PUB AVANT FOOTER -->
+  <!-- PUB APRÈS DOCUMENTS -->
   <div class="pub-section">
     <div class="pub-container pub-horizontal">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
@@ -114,7 +128,7 @@
     <div class="footer-content">
       <div class="footer-col">
         <div class="logo">📚 BiblioAfrik</div>
-        <p>La bibliothèque numérique internationale gratuite pour tous les francophones.</p>
+        <p>La bibliothèque numérique internationale gratuite.</p>
         <div class="social-links">
           <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
           <a href="#" class="social-btn telegram"><i class="fab fa-telegram"></i> Telegram</a>
@@ -129,6 +143,7 @@
           <li><a href="index.html">Accueil</a></li>
           <li><a href="bibliotheque.html">Bibliothèque</a></li>
           <li><a href="inscription.html">S'inscrire</a></li>
+          <li><a href="top-notes.html">⭐ Top Notés</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -139,6 +154,8 @@
           <li><a href="bibliotheque.html?cat=chretien">✝️ Chrétien</a></li>
           <li><a href="bibliotheque.html?cat=sport">⚽ Sport</a></li>
           <li><a href="bibliotheque.html?cat=motivation">💪 Motivation</a></li>
+          <li><a href="bibliotheque.html?cat=histoires">📜 Histoires</a></li>
+          <li><a href="bibliotheque.html?cat=culture">🌍 Culture</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -150,17 +167,241 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom"><p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p></div>
+    <div class="footer-bottom">
+      <p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p>
+    </div>
   </footer>
 
+  <script src="js/main.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/verset.js"></script>
+  <script src="js/notation.js"></script>
   <script>
-    const toggle=document.getElementById('darkToggle');
-    const html=document.documentElement;
-    if(localStorage.getItem('theme')==='dark'){html.setAttribute('data-theme','dark');toggle.textContent='☀️';}
-    toggle.addEventListener('click',()=>{const d=html.getAttribute('data-theme')==='dark';html.setAttribute('data-theme',d?'light':'dark');toggle.textContent=d?'🌙':'☀️';localStorage.setItem('theme',d?'light':'dark');});
-    document.getElementById('hamburger').addEventListener('click',()=>{document.getElementById('navMenu').classList.toggle('ouvert');});
-    const user=JSON.parse(localStorage.getItem('biblioafrik_user_actif')||'null');
-    if(user){document.getElementById('btnLogin').textContent='👤 '+user.prenom;document.getElementById('btnLogin').href='profil.html';document.getElementById('btnRegister').textContent='🚪 Déco';document.getElementById('btnRegister').href='#';document.getElementById('btnRegister').onclick=()=>{localStorage.removeItem('biblioafrik_user_actif');location.reload();};}
+  localStorage.removeItem('biblioafrik_docs');
+
+  const tousLesDocuments = [
+    {id:1,titre:"Algèbre — Cours Complet Terminale",cat:"cours",sous:"maths",niveau:"Terminale",icon:"🔢",lien:"#",desc:"Cours complet sur l'algèbre"},
+    {id:2,titre:"Géométrie dans l'espace — Exercices",cat:"cours",sous:"maths",niveau:"Terminale",icon:"🔢",lien:"#",desc:"Exercices corrigés de géométrie"},
+    {id:3,titre:"Probabilités et Statistiques",cat:"cours",sous:"maths",niveau:"1ère",icon:"🔢",lien:"#",desc:"Cours de probabilités"},
+    {id:4,titre:"Fonctions — Résumé et Applications",cat:"cours",sous:"maths",niveau:"Terminale",icon:"🔢",lien:"#",desc:"Résumé des fonctions"},
+    {id:5,titre:"Mécanique — Résumé et Exercices",cat:"cours",sous:"physique",niveau:"1ère",icon:"⚗️",lien:"#",desc:"Cours de mécanique"},
+    {id:6,titre:"Électricité — Cours Complet",cat:"cours",sous:"physique",niveau:"Terminale",icon:"⚗️",lien:"#",desc:"Tout sur l'électricité"},
+    {id:7,titre:"Thermodynamique — Fiches de Révision",cat:"cours",sous:"physique",niveau:"Terminale",icon:"⚗️",lien:"#",desc:"Fiches thermodynamique"},
+    {id:8,titre:"Optique — Exercices BAC Corrigés",cat:"cours",sous:"physique",niveau:"Terminale",icon:"⚗️",lien:"#",desc:"Exercices d'optique"},
+    {id:9,titre:"Dissertation — Méthodologie Complète",cat:"cours",sous:"francais",niveau:"Lycée",icon:"📝",lien:"#",desc:"Guide de la dissertation"},
+    {id:10,titre:"Commentaire de Texte — Guide Complet",cat:"cours",sous:"francais",niveau:"Lycée",icon:"📝",lien:"#",desc:"Méthode commentaire de texte"},
+    {id:11,titre:"Grammaire Française — Révisions BAC",cat:"cours",sous:"francais",niveau:"Terminale",icon:"📝",lien:"#",desc:"Toute la grammaire française"},
+    {id:12,titre:"Introduction à Python — Débutants",cat:"cours",sous:"informatique",niveau:"Tous niveaux",icon:"💻",lien:"#",desc:"Apprendre Python de zéro"},
+    {id:13,titre:"HTML & CSS — Apprendre le Web",cat:"cours",sous:"informatique",niveau:"Débutant",icon:"💻",lien:"#",desc:"Créer des sites web"},
+    {id:14,titre:"Algorithmes et Structures de Données",cat:"cours",sous:"informatique",niveau:"Avancé",icon:"💻",lien:"#",desc:"Algorithmique avancée"},
+    {id:15,titre:"Histoire de l'Afrique — Résumé BAC",cat:"cours",sous:"histoire",niveau:"Terminale",icon:"🌍",lien:"#",desc:"Histoire africaine complète"},
+    {id:16,titre:"Géographie Africaine — Fiches",cat:"cours",sous:"histoire",niveau:"1ère",icon:"🌍",lien:"#",desc:"Géographie africaine"},
+    {id:17,titre:"La Colonisation — Cours Complet",cat:"cours",sous:"histoire",niveau:"Terminale",icon:"🌍",lien:"#",desc:"Histoire de la colonisation"},
+    {id:18,titre:"Biologie Cellulaire — Cours Détaillé",cat:"cours",sous:"svt",niveau:"Terminale",icon:"🧬",lien:"#",desc:"La cellule et ses fonctions"},
+    {id:19,titre:"Génétique — Résumé et Exercices",cat:"cours",sous:"svt",niveau:"Terminale",icon:"🧬",lien:"#",desc:"Cours de génétique"},
+    {id:20,titre:"English Grammar — Complete Guide",cat:"cours",sous:"anglais",niveau:"Lycée",icon:"🇬🇧",lien:"#",desc:"Toute la grammaire anglaise"},
+    {id:21,titre:"English Vocabulary — BAC Preparation",cat:"cours",sous:"anglais",niveau:"Terminale",icon:"🇬🇧",lien:"#",desc:"Vocabulaire pour le BAC"},
+    {id:22,titre:"La Bible — Ancien Testament",cat:"chretien",sous:"bible",niveau:"Tous niveaux",icon:"✝️",lien:"#",desc:"L'Ancien Testament complet"},
+    {id:23,titre:"La Bible — Nouveau Testament",cat:"chretien",sous:"bible",niveau:"Tous niveaux",icon:"✝️",lien:"#",desc:"Le Nouveau Testament complet"},
+    {id:24,titre:"Étude Biblique — Le Livre des Psaumes",cat:"chretien",sous:"etude",niveau:"Tous niveaux",icon:"📖",lien:"#",desc:"Étude des Psaumes"},
+    {id:25,titre:"Prières du Matin et du Soir",cat:"chretien",sous:"prieres",niveau:"Tous niveaux",icon:"🙏",lien:"#",desc:"Recueil de prières quotidiennes"},
+    {id:26,titre:"Témoignages de Foi — Histoires Vraies",cat:"chretien",sous:"temoignages",niveau:"Tous niveaux",icon:"💫",lien:"#",desc:"Témoignages de transformation"},
+    {id:27,titre:"Le Sermon sur la Montagne — Étude",cat:"chretien",sous:"etude",niveau:"Tous niveaux",icon:"⛪",lien:"#",desc:"Étude du sermon de Jésus"},
+    {id:28,titre:"Chants et Cantiques Chrétiens",cat:"chretien",sous:"musique",niveau:"Tous niveaux",icon:"🎵",lien:"#",desc:"Recueil de chants de louange"},
+    {id:29,titre:"Comment Prier Efficacement",cat:"chretien",sous:"prieres",niveau:"Tous niveaux",icon:"🙏",lien:"#",desc:"Guide de la prière chrétienne"},
+    {id:30,titre:"La Grâce de Dieu — Méditations",cat:"chretien",sous:"meditation",niveau:"Tous niveaux",icon:"✨",lien:"#",desc:"Méditations sur la grâce divine"},
+    {id:31,titre:"Jeunesse et Foi — Guide Chrétien",cat:"chretien",sous:"jeunesse",niveau:"Tous niveaux",icon:"🌟",lien:"#",desc:"La foi pour les jeunes"},
+    {id:32,titre:"Programme Musculation Débutant 12 semaines",cat:"sport",sous:"fitness",niveau:"Débutant",icon:"🏋️",lien:"#",desc:"Programme musculation complet"},
+    {id:33,titre:"Football — Règles Officielles FIFA",cat:"sport",sous:"football",niveau:"Tous niveaux",icon:"⚽",lien:"#",desc:"Règles officielles du football"},
+    {id:34,titre:"Nutrition Sportive — Guide Complet",cat:"sport",sous:"nutrition",niveau:"Tous niveaux",icon:"🥗",lien:"#",desc:"Alimentation optimale pour le sport"},
+    {id:35,titre:"Basketball — Techniques de Base",cat:"sport",sous:"basketball",niveau:"Débutant",icon:"🏀",lien:"#",desc:"Fondamentaux du basketball"},
+    {id:36,titre:"Course à Pied — Plan d'Entraînement",cat:"sport",sous:"athletisme",niveau:"Tous niveaux",icon:"🏃",lien:"#",desc:"Progresser en course à pied"},
+    {id:37,titre:"Biographie — Didier Drogba",cat:"sport",sous:"biographies",niveau:"Tous niveaux",icon:"⭐",lien:"#",desc:"La vie du grand attaquant ivoirien"},
+    {id:38,titre:"Yoga et Méditation — Guide Débutant",cat:"sport",sous:"bienetre",niveau:"Débutant",icon:"🧘",lien:"#",desc:"Initiation au yoga"},
+    {id:39,titre:"Santé Mentale et Sport — Connexion",cat:"sport",sous:"sante",niveau:"Tous niveaux",icon:"🧠",lien:"#",desc:"Sport et santé mentale"},
+    {id:40,titre:"Volleyball — Règles et Techniques",cat:"sport",sous:"volleyball",niveau:"Tous niveaux",icon:"🏐",lien:"#",desc:"Maîtriser le volleyball"},
+    {id:41,titre:"Contes Africains — Recueil Illustré",cat:"histoires",sous:"contes",niveau:"Tous niveaux",icon:"🌍",lien:"#",desc:"Les plus beaux contes africains"},
+    {id:42,titre:"L'Enfant Noir — Camara Laye",cat:"histoires",sous:"romans",niveau:"Lycée",icon:"📗",lien:"#",desc:"Roman autobiographique africain"},
+    {id:43,titre:"Histoires Vraies — Réussites Africaines",cat:"histoires",sous:"vraies",niveau:"Tous niveaux",icon:"⭐",lien:"#",desc:"Success stories africaines"},
+    {id:44,titre:"Le Monde s'effondre — Chinua Achebe",cat:"histoires",sous:"romans",niveau:"Lycée",icon:"📘",lien:"#",desc:"Roman classique africain"},
+    {id:45,titre:"Nouvelles Africaines — Anthologie",cat:"histoires",sous:"nouvelles",niveau:"Tous niveaux",icon:"📖",lien:"#",desc:"Recueil de nouvelles africaines"},
+    {id:46,titre:"Histoires pour Enfants — Recueil",cat:"histoires",sous:"enfants",niveau:"Enfants",icon:"🧸",lien:"#",desc:"Histoires pour enfants"},
+    {id:47,titre:"Légendes et Mythes d'Afrique",cat:"histoires",sous:"legendes",niveau:"Tous niveaux",icon:"🌙",lien:"#",desc:"Légendes du continent africain"},
+    {id:48,titre:"Journal d'un Jeune Entrepreneur",cat:"histoires",sous:"vraies",niveau:"Tous niveaux",icon:"💼",lien:"#",desc:"Histoire d'un entrepreneur africain"},
+    {id:49,titre:"Les 7 Habitudes des Gens Efficaces",cat:"motivation",sous:"leadership",niveau:"Tous niveaux",icon:"💡",lien:"#",desc:"Best-seller de Stephen Covey"},
+    {id:50,titre:"L'Art de la Guerre — Sun Tzu",cat:"motivation",sous:"strategie",niveau:"Tous niveaux",icon:"⚔️",lien:"#",desc:"Stratégie et leadership"},
+    {id:51,titre:"Penser et Devenir Riche — Napoleon Hill",cat:"motivation",sous:"richesse",niveau:"Tous niveaux",icon:"💰",lien:"#",desc:"Classique de la pensée positive"},
+    {id:52,titre:"Développer sa Confiance en Soi",cat:"motivation",sous:"confiance",niveau:"Tous niveaux",icon:"💪",lien:"#",desc:"Guide pratique pour s'affirmer"},
+    {id:53,titre:"L'Intelligence Émotionnelle",cat:"motivation",sous:"psychologie",niveau:"Tous niveaux",icon:"🧠",lien:"#",desc:"Gérer ses émotions efficacement"},
+    {id:54,titre:"Entrepreneuriat Africain — Guide",cat:"motivation",sous:"entrepreneuriat",niveau:"Tous niveaux",icon:"🚀",lien:"#",desc:"Créer son entreprise en Afrique"},
+    {id:55,titre:"Surmonter l'Échec et Rebondir",cat:"motivation",sous:"resilience",niveau:"Tous niveaux",icon:"🔄",lien:"#",desc:"Transformer l'échec en force"},
+    {id:56,titre:"Leadership Africain — Leçons de Grands",cat:"motivation",sous:"leadership",niveau:"Tous niveaux",icon:"👑",lien:"#",desc:"Leçons des grands leaders africains"},
+    {id:57,titre:"Gestion du Temps — Méthodes Pratiques",cat:"motivation",sous:"productivite",niveau:"Tous niveaux",icon:"⏰",lien:"#",desc:"Optimiser son temps"},
+    {id:58,titre:"Citations Inspirantes — Recueil 1000",cat:"motivation",sous:"citations",niveau:"Tous niveaux",icon:"💬",lien:"#",desc:"1000 citations motivantes"},
+    {id:59,titre:"Langues Africaines — Guide du Wolof",cat:"culture",sous:"langues",niveau:"Tous niveaux",icon:"🗣️",lien:"#",desc:"Apprendre le Wolof"},
+    {id:60,titre:"Histoire de l'Empire du Mali",cat:"culture",sous:"histoire",niveau:"Tous niveaux",icon:"🏛️",lien:"#",desc:"L'Empire du Mali"},
+    {id:61,titre:"Art Africain — Guide et Histoire",cat:"culture",sous:"art",niveau:"Tous niveaux",icon:"🎨",lien:"#",desc:"L'art africain à travers les siècles"},
+    {id:62,titre:"Musiques du Monde — Encyclopédie",cat:"culture",sous:"musique",niveau:"Tous niveaux",icon:"🎵",lien:"#",desc:"Musiques des différentes cultures"},
+    {id:63,titre:"Cuisine Africaine — 100 Recettes",cat:"culture",sous:"cuisine",niveau:"Tous niveaux",icon:"🍲",lien:"#",desc:"Meilleures recettes africaines"},
+    {id:64,titre:"Traditions et Coutumes d'Afrique",cat:"culture",sous:"traditions",niveau:"Tous niveaux",icon:"🥁",lien:"#",desc:"Traditions du continent africain"},
+    {id:65,titre:"Guide du Swahili pour Débutants",cat:"culture",sous:"langues",niveau:"Débutant",icon:"🗣️",lien:"#",desc:"Apprendre le Swahili"},
+  ];
+
+  const sousFiltresData = {
+    cours:[{val:'tous-cours',label:'Tous'},{val:'maths',label:'🔢 Maths'},{val:'physique',label:'⚗️ Physique'},{val:'francais',label:'📝 Français'},{val:'informatique',label:'💻 Info'},{val:'histoire',label:'🌍 Histoire'},{val:'svt',label:'🧬 SVT'},{val:'anglais',label:'🇬🇧 Anglais'}],
+    chretien:[{val:'tous-chretien',label:'Tous'},{val:'bible',label:'✝️ Bible'},{val:'etude',label:'📖 Études'},{val:'prieres',label:'🙏 Prières'},{val:'temoignages',label:'💫 Témoignages'},{val:'meditation',label:'✨ Méditations'},{val:'jeunesse',label:'🌟 Jeunesse'}],
+    sport:[{val:'tous-sport',label:'Tous'},{val:'football',label:'⚽ Football'},{val:'basketball',label:'🏀 Basketball'},{val:'fitness',label:'🏋️ Fitness'},{val:'nutrition',label:'🥗 Nutrition'},{val:'sante',label:'🧠 Santé'},{val:'biographies',label:'⭐ Bios'},{val:'athletisme',label:'🏃 Athlétisme'},{val:'bienetre',label:'🧘 Bien-être'}],
+    histoires:[{val:'tous-histoires',label:'Tous'},{val:'contes',label:'🌍 Contes'},{val:'romans',label:'📗 Romans'},{val:'vraies',label:'⭐ Vraies'},{val:'enfants',label:'🧸 Enfants'},{val:'legendes',label:'🌙 Légendes'},{val:'nouvelles',label:'📖 Nouvelles'}],
+    motivation:[{val:'tous-motivation',label:'Tous'},{val:'leadership',label:'👑 Leadership'},{val:'entrepreneuriat',label:'🚀 Entrepreneuriat'},{val:'psychologie',label:'🧠 Psychologie'},{val:'productivite',label:'⏰ Productivité'},{val:'resilience',label:'🔄 Résilience'},{val:'richesse',label:'💰 Richesse'},{val:'citations',label:'💬 Citations'}],
+    culture:[{val:'tous-culture',label:'Tous'},{val:'langues',label:'🗣️ Langues'},{val:'histoire',label:'🏛️ Histoire'},{val:'art',label:'🎨 Art'},{val:'cuisine',label:'🍲 Cuisine'},{val:'traditions',label:'🥁 Traditions'},{val:'musique',label:'🎵 Musique'}]
+  };
+
+  let catActive='tous', sousActive='tous', recherche='', triActuel='defaut';
+
+  function filtrerCategorie(cat,el){
+    catActive=cat; sousActive='tous';
+    document.querySelectorAll('.mega-cat').forEach(m=>m.classList.remove('actif'));
+    el.classList.add('actif');
+    afficherSousFiltres(cat);
+    mettreAJour();
+  }
+
+  function afficherSousFiltres(cat){
+    const c=document.getElementById('sousFiltres');
+    if(cat==='tous'||!sousFiltresData[cat]){c.innerHTML='';c.style.display='none';return;}
+    c.style.display='flex';
+    c.innerHTML=sousFiltresData[cat].map((f,i)=>`<button class="filtre ${i===0?'actif':''}" onclick="filtrerSous('${f.val}',this)">${f.label}</button>`).join('');
+  }
+
+  function filtrerSous(sous,el){
+    sousActive=sous;
+    document.querySelectorAll('#sousFiltres .filtre').forEach(f=>f.classList.remove('actif'));
+    el.classList.add('actif');
+    mettreAJour();
+  }
+
+  function trierDocs(){ triActuel=document.getElementById('triSelect').value; mettreAJour(); }
+
+  function mettreAJour(){
+    let docs=[...tousLesDocuments];
+    if(catActive!=='tous') docs=docs.filter(d=>d.cat===catActive);
+    if(sousActive!=='tous'&&!sousActive.startsWith('tous-')) docs=docs.filter(d=>d.sous===sousActive);
+    if(recherche) docs=docs.filter(d=>d.titre.toLowerCase().includes(recherche)||(d.desc&&d.desc.toLowerCase().includes(recherche)));
+    if(triActuel==='az') docs.sort((a,b)=>a.titre.localeCompare(b.titre));
+    if(triActuel==='za') docs.sort((a,b)=>b.titre.localeCompare(a.titre));
+    if(triActuel==='niveau') docs.sort((a,b)=>(a.niveau||'').localeCompare(b.niveau||''));
+    if(triActuel==='note'){
+      const notes=JSON.parse(localStorage.getItem('biblioafrik_notes_global')||'{}');
+      docs.sort((a,b)=>parseFloat((notes[b.id]||{moyenne:0}).moyenne)-parseFloat((notes[a.id]||{moyenne:0}).moyenne));
+    }
+    afficherDocuments(docs);
+  }
+
+  const badgeColors={cours:'#1565c0:#e3f2fd',chretien:'#6a1b9a:#f3e5f5',sport:'#2e7d32:#e8f5e9',histoires:'#c62828:#fce4ec',motivation:'#e65100:#fff3e0',culture:'#00695c:#e0f2f1'};
+  function getBadgeStyle(key){const c=(badgeColors[key]||'#333:#eee').split(':');return `color:${c[0]};background:${c[1]};`;}
+
+  function afficherDocuments(liste){
+    const grid=document.getElementById('docGrid');
+    const aucun=document.getElementById('aucunResultat');
+    const compteur=document.getElementById('compteur');
+    grid.innerHTML='';
+    if(liste.length===0){
+      aucun.style.display='block';
+      compteur.textContent='0 document trouvé';
+      return;
+    }
+    aucun.style.display='none';
+    compteur.textContent=`${liste.length} document${liste.length>1?'s':''} trouvé${liste.length>1?'s':''}`;
+
+    liste.forEach((doc,i)=>{
+      // Pub tous les 8 documents
+      if(i>0&&i%8===0){
+        const pubDiv=document.createElement('div');
+        pubDiv.style.cssText='grid-column:1/-1;';
+        pubDiv.innerHTML=`<div class="pub-container pub-dans-grille"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+        grid.appendChild(pubDiv);
+        try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+      }
+
+      const carte=document.createElement('div');
+      carte.className='doc-card';
+      carte.innerHTML=`
+        <div class="doc-icon">${doc.icon}</div>
+        <div class="doc-info">
+          <h3 title="${doc.titre}">${doc.titre}</h3>
+          <p class="doc-desc">${doc.desc||''}</p>
+          <div class="badges">
+            <span class="badge" style="${getBadgeStyle(doc.cat)}">${doc.cat.charAt(0).toUpperCase()+doc.cat.slice(1)}</span>
+            <span class="niveau">${doc.niveau||''}</span>
+          </div>
+          <div data-notation-id="${doc.id}"></div>
+        </div>
+        <div class="doc-actions">
+          <a href="lecteur.html?id=${doc.id}&titre=${encodeURIComponent(doc.titre)}&lien=${encodeURIComponent(doc.lien)}&cat=${doc.cat}&niveau=${encodeURIComponent(doc.niveau||'')}&icon=${encodeURIComponent(doc.icon)}"
+             class="btn-lire">
+            <i class="fas fa-book-open"></i> Lire
+          </a>
+          <a href="${doc.lien}" target="_blank" class="btn-dl"
+             onclick="compterTelechargement('${doc.titre}')">
+            <i class="fas fa-download"></i>
+          </a>
+        </div>
+      `;
+      grid.appendChild(carte);
+
+      // Initialiser notation
+      const notationEl = carte.querySelector('[data-notation-id]');
+      if(notationEl) notationEl.innerHTML = genererEtoiles(doc.id, 'small');
+    });
+  }
+
+  document.getElementById('recherche').addEventListener('input',function(){
+    recherche=this.value.toLowerCase().trim();
+    mettreAJour();
+  });
+
+  function compterTelechargement(t){
+    let n=parseInt(localStorage.getItem('biblioafrik_dl')||'0');
+    localStorage.setItem('biblioafrik_dl',n+1);
+  }
+
+  function lireUrlParams(){
+    const params=new URLSearchParams(window.location.search);
+    const cat=params.get('cat');
+    if(cat&&cat!=='tous'){
+      const m=document.querySelector(`.mega-cat[onclick*="'${cat}'"]`);
+      if(m) filtrerCategorie(cat,m);
+    }
+  }
+
+  // Dark mode
+  const toggle=document.getElementById('darkToggle');
+  const html=document.documentElement;
+  if(localStorage.getItem('theme')==='dark'){html.setAttribute('data-theme','dark');toggle.textContent='☀️';}
+  toggle.addEventListener('click',()=>{
+    const d=html.getAttribute('data-theme')==='dark';
+    html.setAttribute('data-theme',d?'light':'dark');
+    toggle.textContent=d?'🌙':'☀️';
+    localStorage.setItem('theme',d?'light':'dark');
+  });
+
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click',()=>{
+    document.getElementById('navMenu').classList.toggle('ouvert');
+  });
+
+  // Connexion
+  const user=JSON.parse(localStorage.getItem('biblioafrik_user_actif')||'null');
+  if(user){
+    document.getElementById('btnLogin').textContent='👤 '+user.prenom;
+    document.getElementById('btnLogin').href='profil.html';
+    document.getElementById('btnRegister').textContent='🚪 Déco';
+    document.getElementById('btnRegister').href='#';
+    document.getElementById('btnRegister').onclick=()=>{localStorage.removeItem('biblioafrik_user_actif');location.reload();};
+  }
+
+  lireUrlParams();
+  mettreAJour();
   </script>
 </body>
 </html>

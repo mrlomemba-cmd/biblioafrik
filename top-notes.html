@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Documents — BiblioAfrik</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div id="versetDuJour"></div>
+
+  <nav>
+    <div class="logo">📚 BiblioAfrik</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <ul id="navMenu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="bibliotheque.html">Bibliothèque</a></li>
+      <li><a href="apropos.html">Notre Histoire</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle">🌙</button>
+      <a href="connexion.html" class="btn-nav-login" id="btnLogin">🔐 Connexion</a>
+      <a href="inscription.html" class="btn-nav-register" id="btnRegister">✨ S'inscrire</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="histoire-hero">
+    <div class="avatar">⭐</div>
+    <h1>Top Documents Notés</h1>
+    <p>Les documents les mieux notés par la communauté BiblioAfrik</p>
+  </section>
+
+  <!-- PUB -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <!-- PODIUM TOP 3 -->
+  <section style="padding:40px 5%;background:var(--surface);text-align:center;">
+    <h2 style="color:var(--text);margin-bottom:30px;">🏆 Podium</h2>
+    <div id="podium" style="display:flex;justify-content:center;align-items:flex-end;gap:20px;flex-wrap:wrap;"></div>
+  </section>
+
+  <!-- TOUS LES DOCS NOTÉS -->
+  <section style="background:var(--bg);padding:40px 0;">
+    <h2 style="text-align:center;color:var(--text);margin-bottom:10px;">📋 Classement Complet</h2>
+    <p style="text-align:center;color:var(--gray);margin-bottom:30px;font-size:0.9rem;">
+      Note les documents pour faire évoluer le classement !
+    </p>
+    <div class="top-notes-grid" id="topNotesGrid"></div>
+  </section>
+
+  <!-- PUB -->
+  <div class="pub-section">
+    <div class="pub-container pub-horizontal">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8006779195400510" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 BiblioAfrik — Créé avec ❤️ pour le monde francophone.</p>
+    </div>
+  </footer>
+
+  <script src="js/notation.js"></script>
+  <script src="js/verset.js"></script>
+  <script>
+    // Dark mode
+    const toggle = document.getElementById('darkToggle');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme','dark'); toggle.textContent='☀️'; }
+    toggle.addEventListener('click', () => {
+      const d = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', d ? 'light' : 'dark');
+      toggle.textContent = d ? '🌙' : '☀️';
+      localStorage.setItem('theme', d ? 'light' : 'dark');
+    });
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navMenu').classList.toggle('ouvert');
+    });
+    const user = JSON.parse(localStorage.getItem('biblioafrik_user_actif') || 'null');
+    if (user) {
+      document.getElementById('btnLogin').textContent = '👤 ' + user.prenom;
+      document.getElementById('btnLogin').href = 'profil.html';
+      document.getElementById('btnRegister').textContent = '🚪 Déco';
+      document.getElementById('btnRegister').href = '#';
+      document.getElementById('btnRegister').onclick = () => { localStorage.removeItem('biblioafrik_user_actif'); location.reload(); };
+    }
+
+    // Documents
+    const docs = [
+      {id:1,titre:"Algèbre — Cours Complet Terminale",cat:"cours",icon:"🔢",lien:"#"},
+      {id:12,titre:"Introduction à Python — Débutants",cat:"cours",icon:"💻",lien:"#"},
+      {id:22,titre:"La Bible — Ancien Testament",cat:"chretien",icon:"✝️",lien:"#"},
+      {id:23,titre:"La Bible — Nouveau Testament",cat:"chretien",icon:"✝️",lien:"#"},
+      {id:25,titre:"Prières du Matin et du Soir",cat:"chretien",icon:"🙏",lien:"#"},
+      {id:33,titre:"Football — Règles Officielles FIFA",cat:"sport",icon:"⚽",lien:"#"},
+      {id:49,titre:"Les 7 Habitudes des Gens Efficaces",cat:"motivation",icon:"💡",lien:"#"},
+      {id:50,titre:"L'Art de la Guerre — Sun Tzu",cat:"motivation",icon:"⚔️",lien:"#"},
+      {id:54,titre:"Entrepreneuriat Africain — Guide",cat:"motivation",icon:"🚀",lien:"#"},
+      {id:41,titre:"Contes Africains — Recueil Illustré",cat:"histoires",icon:"🌍",lien:"#"},
+    ];
+
+    const badgeColors = {
+      cours:'#1565c0:#e3f2fd', chretien:'#6a1b9a:#f3e5f5',
+      sport:'#2e7d32:#e8f5e9', histoires:'#c62828:#fce4ec',
+      motivation:'#e65100:#fff3e0', culture:'#00695c:#e0f2f1'
+    };
+
+    function getBadgeStyle(key) {
+      const c = (badgeColors[key]||'#333:#eee').split(':');
+      return `color:${c[0]};background:${c[1]};`;
+    }
+
+    // Construire le classement
+    const notes = JSON.parse(localStorage.getItem('biblioafrik_notes_global') || '{}');
+    const docsTries = [...docs].map(d => ({
+      ...d,
+      note: notes[d.id] || { moyenne: 0, count: 0 }
+    })).sort((a, b) => parseFloat(b.note.moyenne) - parseFloat(a.note.moyenne));
+
+    // PODIUM TOP 3
+    const podium = document.getElementById('podium');
+    const podiumData = [
+      { doc: docsTries[1], rang: 2, height: '120px', medal: '🥈', color: '#95a5a6' },
+      { doc: docsTries[0], rang: 1, height: '160px', medal: '🥇', color: '#f0a500' },
+      { doc: docsTries[2], rang: 3, height: '90px', medal: '🥉', color: '#cd7f32' },
+    ];
+
+    podium.innerHTML = podiumData.map(p => `
+      <div style="text-align:center;width:160px;">
+        <div style="font-size:1.8rem;margin-bottom:8px;">${p.medal}</div>
+        <div style="font-size:1.5rem;margin-bottom:5px;">${p.doc.icon}</div>
+        <div style="font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3;">
+          ${p.doc.titre.substring(0, 30)}...
+        </div>
+        <div style="font-size:1.2rem;font-weight:800;color:${p.color};">
+          ${p.doc.note.moyenne || '—'} ⭐
+        </div>
+        <div style="background:${p.color};height:${p.height};border-radius:8px 8px 0 0;margin-top:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;font-weight:800;">
+          ${p.rang}
+        </div>
+      </div>
+    `).join('');
+
+    // CLASSEMENT COMPLET
+    const grid = document.getElementById('topNotesGrid');
+    grid.innerHTML = docsTries.map((doc, i) => `
+      <div class="top-note-card">
+        <div class="top-note-rank">${i < 3 ? ['🥇','🥈','🥉'][i] : '#' + (i+1)}</div>
+        <div style="font-size:2rem;flex-shrink:0;">${doc.icon}</div>
+        <div class="top-note-info">
+          <h3>${doc.titre}</h3>
+          <span class="badge" style="${getBadgeStyle(doc.cat)};padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;">${doc.cat}</span>
+          <div style="margin-top:6px;" data-notation-id="${doc.id}"></div>
+        </div>
+        <a href="lecteur.html?id=${doc.id}&titre=${encodeURIComponent(doc.titre)}&lien=${encodeURIComponent(doc.lien)}&cat=${doc.cat}&icon=${encodeURIComponent(doc.icon)}"
+           style="background:#f0a500;color:#1a1a2e;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.82rem;flex-shrink:0;">
+          <i class="fas fa-book-open"></i>
+        </a>
+      </div>
+    `).join('');
+
+    // Initialiser les notations
+    document.querySelectorAll('[data-notation-id]').forEach(el => {
+      const docId = parseInt(el.getAttribute('data-notation-id'));
+      el.innerHTML = genererEtoiles(docId, 'small');
+    });
+  </script>
+</body>
+</html>
