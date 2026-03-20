@@ -1,0 +1,58 @@
+{
+  "name": "BiblioAfrik — Bibliothèque Numérique",
+  "short_name": "BiblioAfrik",
+  "description": "La bibliothèque numérique internationale gratuite pour tous les francophones",
+  "start_url": "/biblioafrik/index.html",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#f0a500",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bibliothèque",
+      "url": "/biblioafrik/bibliotheque.html",
+      "description": "Accéder à la bibliothèque"
+    },
+    {
+      "name": "Versets",
+      "url": "/biblioafrik/versets.html",
+      "description": "Versets bibliques du jour"
+    },
+    {
+      "name": "Mon Profil",
+      "url": "/biblioafrik/profil.html",
+      "description": "Mon espace personnel"
+    }
+  ],
+  "categories": ["education", "books", "lifestyle"]
+}

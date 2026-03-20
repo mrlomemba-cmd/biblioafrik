@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
 <head>
+  <!-- PWA -->
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#f0a500"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="BiblioAfrik"/>
+<link rel="apple-touch-icon" href="icons/icon-192.png"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="BiblioAfrik — Bibliothèque numérique internationale gratuite pour tous les francophones"/>
@@ -11,7 +18,26 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8006779195400510" crossorigin="anonymous"></script>
 </head>
 <script src="js/verset.js"></script>
+<script src="js/pwa.js"></script>
 <body>
+  <!-- BANNIÈRE INSTALLATION PWA -->
+<div id="installBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;padding:15px 5%;z-index:9999;align-items:center;justify-content:space-between;gap:15px;box-shadow:0 -5px 20px rgba(0,0,0,0.3);flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:15px;">
+    <span style="font-size:2.5rem;">📚</span>
+    <div>
+      <strong style="display:block;font-size:1rem;">Installe BiblioAfrik !</strong>
+      <small style="opacity:0.8;font-size:0.82rem;">Accède à la bibliothèque même sans internet</small>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <button id="installBtn" style="background:#f0a500;color:#1a1a2e;border:none;padding:10px 20px;border-radius:10px;font-family:'Poppins',sans-serif;font-weight:700;cursor:pointer;font-size:0.9rem;">
+      📲 Installer
+    </button>
+    <button id="installDismiss" style="background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.2);padding:10px 15px;border-radius:10px;font-family:'Poppins',sans-serif;cursor:pointer;">
+      ✕
+    </button>
+  </div>
+</div>
     <!-- VERSET DU JOUR -->
 <div id="versetDuJour"></div>
 
